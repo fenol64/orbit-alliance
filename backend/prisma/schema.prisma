@@ -10,7 +10,9 @@ datasource db {
 model User {
   id           String            @id @default(ulid())
   name         String
-  wallet       Int
+  wallet       String            @unique
+  email        String            @unique
+  password     String
   createdAt    DateTime          @default(now()) @map("created_at")
   updatedAt    DateTime          @updatedAt @map("updated_at")
   deletedAt    DateTime?         @map("deleted_at")
@@ -23,6 +25,8 @@ model User {
 
 model Institution {
   id          String            @id @default(ulid())
+  email       String            @unique
+  password    String
   name        String
   createdAt   DateTime          @default(now()) @map("created_at")
   updatedAt   DateTime          @updatedAt @map("updated_at")
