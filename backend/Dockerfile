@@ -13,27 +13,26 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 # ---------
-FROM base as builder
 
-WORKDIR /app
-
-COPY --from=deps /app/node_modules ./node_modules
-
-COPY . .
-
-# ---------
-
-FROM gcr.io/distroless/base:nonroot AS runner
+FROM base AS runner
 
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-COPY --from=builder --chown=nonroot:nonroot /app/backend ./backend
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 api
+
+RUN chown api:nodejs .
+
+COPY --chown=api:nodejs . .
+COPY --from=deps /app/node_modules ./node_modules
+
+USER api
 
 EXPOSE 3333
 
 ENV PORT=3333
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["./backend"]
+ENTRYPOINT ["npm", "run", "start"]

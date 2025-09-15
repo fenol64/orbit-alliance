@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx --env-file .env --watch src/http/server.ts",
-    "start": "node --env-file .env src/http/server.ts",
+    "start": "node src/http/server.ts",
     "lint": "biome check --write"
   },
   "keywords": [],

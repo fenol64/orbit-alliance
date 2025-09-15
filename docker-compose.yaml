@@ -20,5 +20,13 @@ services:
       - "4317:4317" # OTLP/gRPC
       - "4318:4318" # OTLP/HTTP
 
+  backend:
+    build:
+      context: ./backend
+    env_file:
+      - backend/.env
+    ports:
+      - "3333:3333"
+
 volumes:
   postgresql_data:
