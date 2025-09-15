@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=orders
+      - POSTGRES_DB=orbit
     volumes:
       - ./docker:/docker-entrypoint-initdb.d
       - postgresql_data:/bitnami/postgresql
