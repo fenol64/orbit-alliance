@@ -1,0 +1,116 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String            @id @default(ulid())
+  name         String
+  wallet       Int
+  createdAt    DateTime          @default(now()) @map("created_at")
+  updatedAt    DateTime          @updatedAt @map("updated_at")
+  deletedAt    DateTime?         @map("deleted_at")
+  institutions InstitutionUser[]
+  purchases    Purchase[]
+  actions      ActionUser[]
+
+  @@map("users")
+}
+
+model Institution {
+  id          String            @id @default(ulid())
+  name        String
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
+  deletedAt   DateTime?         @map("deleted_at")
+  users       InstitutionUser[]
+  products    Product[]
+  actions     Action[]
+  userActions ActionUser[]
+
+  @@map("institutions")
+}
+
+model InstitutionUser {
+  userId        String    @map("user_id")
+  institutionId String    @map("institution_id")
+  role          String
+  joinedAt      DateTime  @map("joined_at")
+  leftAt        DateTime? @map("left_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+
+  user        User        @relation(fields: [userId], references: [id])
+  institution Institution @relation(fields: [institutionId], references: [id])
+
+  @@id([userId, institutionId])
+  @@map("institution_users")
+}
+
+model Product {
+  id            String      @id @default(ulid())
+  name          String
+  price         Int
+  institutionId String      @map("institution_id")
+  isInternal    Boolean     @map("is_internal")
+  image         String?
+  description   String?
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  deletedAt     DateTime?   @map("deleted_at")
+  institution   Institution @relation(fields: [institutionId], references: [id])
+  purchases     Purchase[]
+
+  @@map("products")
+}
+
+model Purchase {
+  id              String    @id @default(ulid())
+  productId       String    @map("product_id")
+  userId          String    @map("user_id")
+  priceAtPurchase Int
+  purchasedAt     DateTime  @map("purchased_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  deletedAt       DateTime? @map("deleted_at")
+  product         Product   @relation(fields: [productId], references: [id])
+  user            User      @relation(fields: [userId], references: [id])
+
+  @@map("purchases")
+}
+
+model Action {
+  id            String       @id @default(ulid())
+  institutionId String       @map("institution_id")
+  name          String
+  description   String?
+  reward        Int
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+  deletedAt     DateTime?    @map("deleted_at")
+  institution   Institution  @relation(fields: [institutionId], references: [id])
+  users         ActionUser[]
+
+  @@map("actions")
+}
+
+model ActionUser {
+  id            String      @id @default(ulid())
+  userId        String      @map("user_id")
+  actionId      String      @map("action_id")
+  institutionId String      @map("institution_id")
+  executedAt    DateTime    @map("executed_at")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  deletedAt     DateTime?   @map("deleted_at")
+  user          User        @relation(fields: [userId], references: [id])
+  action        Action      @relation(fields: [actionId], references: [id])
+  institution   Institution @relation(fields: [institutionId], references: [id])
+
+  @@map("action_users")
+}
