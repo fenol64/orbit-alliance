@@ -1,7 +1,7 @@
-import type { FastifyInstance } from 'fastify'
+import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { ProductController } from '../controllers/product.controller.js'
-import { authMiddleware } from '../middleware/auth.middleware.js'
+import { institutionAuthMiddleware, userAuthMiddleware } from '../middleware/institution.middleware.ts'
 
 // Schemas para documentação
 const createProductSchema = z.object({
@@ -69,7 +69,7 @@ export async function productRoutes(fastify: FastifyInstance) {
         }),
       },
     },
-    preHandler: authMiddleware,
+    preHandler: institutionAuthMiddleware,
     handler: ProductController.createProduct,
   })
 
@@ -177,7 +177,7 @@ export async function productRoutes(fastify: FastifyInstance) {
         }),
       },
     },
-    preHandler: authMiddleware,
+    preHandler: institutionAuthMiddleware,
     handler: ProductController.updateProduct,
   })
 
@@ -200,7 +200,7 @@ export async function productRoutes(fastify: FastifyInstance) {
         }),
       },
     },
-    preHandler: authMiddleware,
+    preHandler: institutionAuthMiddleware,
     handler: ProductController.deleteProduct,
   })
 

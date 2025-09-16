@@ -1,7 +1,7 @@
-import type { FastifyInstance } from 'fastify'
+import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { InstitutionController } from '../controllers/institution.controller.js'
-import { authMiddleware } from '../middleware/auth.middleware.js'
+import { institutionAuthMiddleware } from '../middleware/institution.middleware.ts'
 
 // Schemas para documentação
 const createInstitutionSchema = z.object({
@@ -181,7 +181,7 @@ export async function institutionRoutes(fastify: FastifyInstance) {
 
   // Vincular usuário à instituição
   fastify.post('/institutions/users', {
-    preHandler: authMiddleware,
+    preHandler: institutionAuthMiddleware,
     schema: {
       tags: ['institutions'],
       summary: 'Link user to institution',

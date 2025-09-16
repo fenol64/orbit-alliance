@@ -3,7 +3,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import { ActionUserController } from '../controllers/action-user.controller.js'
 import { teacherMiddleware } from '../middleware/teacher.middleware.js'
-import { authMiddleware } from '../middleware/auth.middleware.js'
+import { institutionAuthMiddleware } from '../middleware/institution.middleware.ts'
 
 export async function actionUserRoutes(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>()
@@ -105,7 +105,7 @@ export async function actionUserRoutes(app: FastifyInstance) {
   app.get(
     '/action-executions/institution',
     {
-      preHandler: [authMiddleware],
+      preHandler: [institutionAuthMiddleware],
       schema: {
         description: 'Get all action executions for an institution',
         tags: ['Action Executions'],

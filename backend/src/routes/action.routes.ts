@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { ActionController } from '../controllers/action.controller.js'
-import { authMiddleware } from '../middleware/auth.middleware.js'
+import { institutionAuthMiddleware } from '../middleware/institution.middleware.ts'
 
 // Schemas para documentação
 const createActionSchema = z.object({
@@ -72,7 +72,7 @@ export async function actionRoutes(fastify: FastifyInstance) {
         }),
       },
     },
-    preHandler: authMiddleware,
+    preHandler: institutionAuthMiddleware,
     handler: ActionController.createAction,
   })
 
@@ -187,7 +187,7 @@ export async function actionRoutes(fastify: FastifyInstance) {
         }),
       },
     },
-    preHandler: authMiddleware,
+    preHandler: institutionAuthMiddleware,
     handler: ActionController.updateAction,
   })
 
@@ -211,7 +211,7 @@ export async function actionRoutes(fastify: FastifyInstance) {
         }),
       },
     },
-    preHandler: authMiddleware,
+    preHandler: institutionAuthMiddleware,
     handler: ActionController.deleteAction,
   })
 

@@ -44,7 +44,7 @@ export class ProductController {
       const validatedData = createProductSchema.parse(request.body)
       
       // Obter institutionId do token JWT (middleware já validou)
-      const institutionId = request.user!.institutionId
+      const institutionId = request.institution!.institutionId
       
       const result = await ProductService.createProduct(validatedData, institutionId)
 

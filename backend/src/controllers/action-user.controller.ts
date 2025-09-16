@@ -19,13 +19,13 @@ export class ActionUserController {
       const validatedData = declareActionSchema.parse(request.body)
       
       // Extrair informações do professor do token JWT (vem do teacherMiddleware)
-      const teacher = (request as any).teacher
-      
-      if (!teacher) {
+      if (!request.teacher) {
         return reply.status(401).send({
           error: 'Teacher authentication required',
         })
       }
+      
+      const teacher = request.teacher
 
       // Converter executedAt de string para Date se fornecido
       const declareData = {

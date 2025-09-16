@@ -1,6 +1,6 @@
 import type { FastifyRequest, FastifyReply } from 'fastify'
 import jwt from 'jsonwebtoken'
-import { env } from '../env.js'
+import { env } from '../env.ts'
 
 export interface InstitutionJWTPayload {
   institutionId: string
