@@ -8,11 +8,11 @@ import { useState } from 'react'
 export default function InstituteActionsPage({ actions }) {
 
   const columns = [
-    { key: 'title', label: 'Title' },
+    { key: 'name', label: 'Name' },
     { key: 'description', label: 'Description' },
     {
-      key: 'price',
-      label: 'Price',
+      key: 'reward',
+      label: 'Reward',
       render: (value) => `$ ${(value || 0).toFixed(2)}`
     },
   ]

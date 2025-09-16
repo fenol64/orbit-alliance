@@ -5,18 +5,21 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { DialogFooter } from '@/components/ui/dialog'
+import { axios } from '@/gateway/database'
 
 const ProdutoForm = ({ initialData, onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({
-    nome: initialData?.nome || '',
-    descricao: initialData?.descricao || '',
-    preco: initialData?.preco || '',
-    categoria: initialData?.categoria || ''
+    name: initialData?.name || '',
+    description: initialData?.description || '',
+    price: initialData?.price || 0.00,
   })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onSubmit(formData)
+    axios.post('/products', JSON.stringify({
+        ...formData,
+        isInternal: false,
+    }))
   }
 
   const handleChange = (field, value) => {
@@ -26,47 +29,36 @@ const ProdutoForm = ({ initialData, onSubmit, onCancel }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="nome">Nome</Label>
+        <Label htmlFor="name">Name</Label>
         <Input
-          id="nome"
-          value={formData.nome}
-          onChange={(e) => handleChange('nome', e.target.value)}
-          placeholder="Nome do produto"
+          id="name"
+          value={formData.name}
+          onChange={(e) => handleChange('name', e.target.value)}
+          placeholder="Name of the product"
           required
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="descricao">Descrição</Label>
+        <Label htmlFor="description">Description</Label>
         <Input
-          id="descricao"
-          value={formData.descricao}
-          onChange={(e) => handleChange('descricao', e.target.value)}
-          placeholder="Descrição do produto"
+          id="description"
+          value={formData.description}
+          onChange={(e) => handleChange('description', e.target.value)}
+          placeholder="Description of the product"
           required
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="preco">Preço</Label>
+        <Label htmlFor="price">Price</Label>
         <Input
-          id="preco"
+          id="price"
           type="number"
           step="0.01"
-          value={formData.preco}
-          onChange={(e) => handleChange('preco', e.target.value)}
+          value={formData.price}
+          onChange={(e) => handleChange('price', parseFloat(e.target.value))}
           placeholder="0.00"
-          required
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="categoria">Categoria</Label>
-        <Input
-          id="categoria"
-          value={formData.categoria}
-          onChange={(e) => handleChange('categoria', e.target.value)}
-          placeholder="Categoria do produto"
           required
         />
       </div>
@@ -76,7 +68,7 @@ const ProdutoForm = ({ initialData, onSubmit, onCancel }) => {
           Cancelar
         </Button>
         <Button type="submit">
-          {initialData ? 'Atualizar' : 'Adicionar'}
+          {initialData ? 'Update' : 'Add'}
         </Button>
       </DialogFooter>
     </form>
