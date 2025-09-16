@@ -148,4 +148,16 @@ export class InstitutionModel {
       data,
     })
   }
+
+  static async findUserInstitutions(userId: string) {
+    return await db.institutionUser.findMany({
+      where: {
+        userId,
+        deletedAt: null,
+      },
+      include: {
+        institution: true,
+      },
+    })
+  }
 }
