@@ -28,16 +28,17 @@ axios.interceptors.request.use(config => {
 });
 export class DatabaseFetcher {
     async getInstituteHome(instituteId) {
-        const allUsers = JSON.parse((await axios.get(`/institutions/${instituteId}/users`)).data).data;
+        const usersResponse = await axios.get(`/institutions/${instituteId}/users`);
+        const institutionUsers = JSON.parse(usersResponse.data).data;
         const allProducts = JSON.parse((await axios.get("/products")).data).data;
         const allActions = JSON.parse((await axios.get("/actions")).data).data;
-        console.log("All Users:", allUsers);
+        console.log("Institution Users:", institutionUsers);
         console.log("All Products:", allProducts);
         console.log("All Actions:", allActions);
         const instituteProducts = allProducts.filter((product: any) => product.instituteId === instituteId);
         const instituteActions = allActions.filter((action: any) => action.instituteId === instituteId);
-        const instituteStudents = allUsers.filter((user: any) => user.role === "student" && user.instituteId === instituteId);
-        const instituteTeachers = allUsers.filter((user: any) => user.role === "teacher" && user.instituteId === instituteId);
+        const instituteStudents = institutionUsers.filter((iu: any) => iu.role === "student");
+        const instituteTeachers = institutionUsers.filter((iu: any) => iu.role === "teacher");
 
         return {
             teachers: instituteTeachers.length,
@@ -47,11 +48,12 @@ export class DatabaseFetcher {
         }
     }
     async getInstituteTeachers(instituteId) {
-        const allUsers = JSON.parse((await axios.get("/users")).data).data;
-        const instituteTeachers = allUsers.filter((user: any) => user.role === "teacher");
+        const response = await axios.get(`/institutions/${instituteId}/users`);
+        const institutionUsers = JSON.parse(response.data).data;
+        const instituteTeachers = institutionUsers.filter((iu: any) => iu.role === "teacher");
 
         return {
-            teachers: instituteTeachers
+            teachers: instituteTeachers.map((iu: any) => iu.user)
         }
     }
     async getInstituteProducts(instituteId) {
@@ -70,11 +72,12 @@ export class DatabaseFetcher {
         }
     }
     async getInstituteStudents(instituteId) {
-        const allUsers = JSON.parse((await axios.get("/users")).data).data;
-        const instituteStudents = allUsers.filter((user: any) => user.role === "student" && user.instituteId === instituteId);
+        const response = await axios.get(`/institutions/${instituteId}/users`);
+        const institutionUsers = JSON.parse(response.data).data;
+        const instituteStudents = institutionUsers.filter((iu: any) => iu.role === "student");
 
         return {
-            students: instituteStudents
+            students: instituteStudents.map((iu: any) => iu.user)
         }
     }
 

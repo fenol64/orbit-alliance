@@ -6,6 +6,7 @@ import StudentHome from "@/components/student/pages/home";
 import { DatabaseFetcher } from "@/gateway/database";
 import { useEffect, useState } from "react";
 import { useConfigStore } from "@/store/configStore";
+import { useSearchParams } from "next/navigation";
 
 
 export default function Home() {
@@ -14,9 +15,10 @@ export default function Home() {
     const [institute, setInstitute] = useState(null);
     const [teacher, setTeacher] = useState(null);
     const [student, setStudent] = useState(null);
-    const { instituteId } = useConfigStore();
 
     useEffect(() => {
+        const instituteId = localStorage.getItem("instituteId");
+        console.log("Institute ID from URL:", instituteId);
         const fetchRole = async () => {
             const role = await database.getRole();
 
@@ -30,7 +32,6 @@ export default function Home() {
                 const studentData = await database.getStudentHome(instituteId);
                 setStudent(studentData);
             }
-            setToken(token);
             setRole(role);
         };
         fetchRole();

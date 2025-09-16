@@ -12,6 +12,7 @@ const ProdutoForm = ({ initialData, onSubmit, onCancel }) => {
     name: initialData?.name || '',
     description: initialData?.description || '',
     price: initialData?.price || 0.00,
+
   })
 
   const handleSubmit = (e) => {

@@ -7,8 +7,10 @@ import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { axios } from '@/gateway/database'
+import { useConfigStore } from '@/store/configStore'
 
 export default function InstituteLogin() {
+    const { setInstituteId } = useConfigStore()
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -30,6 +32,7 @@ export default function InstituteLogin() {
     const id = data.data.institution.id
 
     localStorage.setItem("token", token)
+    setInstituteId(id)
     localStorage.setItem("instituteId", id)
     router.push(`/?instituteId=${id}`)
     setIsLoading(false)

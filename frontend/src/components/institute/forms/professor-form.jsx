@@ -8,15 +8,17 @@ import { DialogFooter } from '@/components/ui/dialog'
 
 const ProfessorForm = ({ initialData, onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({
-    nome: initialData?.nome || '',
     email: initialData?.email || '',
-    especialidade: initialData?.especialidade || '',
-    telefone: initialData?.telefone || ''
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    onSubmit(formData)
+    await axios.post('/institutions/users', JSON.stringify({
+        ...formData,
+        role: "teacher"
+    }))
+
+    e.target.reset()
   }
 
   const handleChange = (field, value) => {

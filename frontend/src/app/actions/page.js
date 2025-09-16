@@ -12,9 +12,9 @@ export default function ActionsPage() {
     const [role, setRole] = useState(null);
     const [institute, setInstitute] = useState(null);
     const [student, setStudent] = useState(null);
-    const {instituteId} = useConfigStore();
 
     useEffect(() => {
+        const instituteId = localStorage.getItem("instituteId");
         (async () => {
             const role = await database.getRole();
             const instituteData = await database.getInstituteActions();

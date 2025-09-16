@@ -5,18 +5,21 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { DialogFooter } from '@/components/ui/dialog'
+import { axios } from '@/gateway/database'
 
 const UsuarioForm = ({ initialData, onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({
-    nome: initialData?.nome || '',
     email: initialData?.email || '',
-    role: initialData?.role || '',
-    telefone: initialData?.telefone || ''
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    onSubmit(formData)
+    await axios.post('/institutions/users', JSON.stringify({
+        ...formData,
+        role: "comum"
+    }))
+
+    e.target.reset()
   }
 
   const handleChange = (field, value) => {
@@ -26,17 +29,6 @@ const UsuarioForm = ({ initialData, onSubmit, onCancel }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="nome">Nome</Label>
-        <Input
-          id="nome"
-          value={formData.nome}
-          onChange={(e) => handleChange('nome', e.target.value)}
-          placeholder="Nome do usuário"
-          required
-        />
-      </div>
-
-      <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input
           id="email"
@@ -45,27 +37,6 @@ const UsuarioForm = ({ initialData, onSubmit, onCancel }) => {
           onChange={(e) => handleChange('email', e.target.value)}
           placeholder="email@exemplo.com"
           required
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="role">Função</Label>
-        <Input
-          id="role"
-          value={formData.role}
-          onChange={(e) => handleChange('role', e.target.value)}
-          placeholder="Admin, Editor, Viewer..."
-          required
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="telefone">Telefone</Label>
-        <Input
-          id="telefone"
-          value={formData.telefone}
-          onChange={(e) => handleChange('telefone', e.target.value)}
-          placeholder="(11) 99999-9999"
         />
       </div>
 
