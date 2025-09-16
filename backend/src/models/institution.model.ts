@@ -118,4 +118,34 @@ export class InstitutionModel {
       },
     })
   }
+
+  static async findUserByEmail(email: string) {
+    return await db.user.findFirst({
+      where: {
+        email,
+        deletedAt: null,
+      },
+    })
+  }
+
+  static async findInstitutionUser(userId: string, institutionId: string) {
+    return await db.institutionUser.findFirst({
+      where: {
+        userId,
+        institutionId,
+        deletedAt: null,
+      },
+    })
+  }
+
+  static async createInstitutionUser(data: {
+    userId: string
+    institutionId: string
+    role: string
+    joinedAt: Date
+  }) {
+    return await db.institutionUser.create({
+      data,
+    })
+  }
 }

@@ -1,6 +1,7 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { InstitutionService } from '../services/institution.service.js'
+import type { JWTPayload } from '../middleware/auth.middleware.js'
 
 // Schemas de validação
 const createInstitutionSchema = z.object({
@@ -276,6 +277,65 @@ export class InstitutionController {
 
       return reply.status(200).send({
         message: 'Login successful',
+        data: result.data,
+      })
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return reply.status(400).send({
+          error: 'Validation error',
+          details: error.errors,
+        })
+      }
+
+      return reply.status(500).send({
+        error: 'Internal server error',
+      })
+    }
+  }
+
+  static async linkUser(
+    request: FastifyRequest<{
+      Body: {
+        email: string
+        role: string
+      }
+    }>,
+    reply: FastifyReply
+  ) {
+    try {
+      // Schema de validação para vincular usuário
+      const linkUserSchema = z.object({
+        email: z.string().email('Invalid email format'),
+        role: z.enum(['comum', 'teacher'], {
+          errorMap: () => ({ message: 'Role must be either "comum" or "teacher"' }),
+        }),
+      })
+
+      const validatedData = linkUserSchema.parse(request.body)
+      
+      // Extrair institutionId do token JWT (vem do middleware de auth)
+      const institutionId = request.user?.institutionId
+      
+      if (!institutionId) {
+        return reply.status(401).send({
+          error: 'Institution authentication required',
+        })
+      }
+
+      const result = await InstitutionService.linkUser(
+        institutionId,
+        validatedData.email,
+        validatedData.role
+      )
+
+      if (!result.success) {
+        return reply.status(400).send({
+          error: result.error,
+        })
+      }
+
+      return reply.status(201).send({
+        message: 'User linked successfully',
         data: result.data,
       })
     } catch (error) {

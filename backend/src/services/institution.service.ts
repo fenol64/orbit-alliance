@@ -353,4 +353,66 @@ export class InstitutionService {
       }
     }
   }
+
+  static async linkUser(institutionId: string, email: string, role: string): Promise<InstitutionServiceResponse<any>> {
+    try {
+      console.log('Linking user to institution:', { institutionId, email, role })
+
+      // Verificar se a instituição existe
+      const institution = await InstitutionModel.findById(institutionId)
+      if (!institution) {
+        return {
+          success: false,
+          error: 'Institution not found',
+        }
+      }
+
+      // Verificar se o usuário existe pelo email
+      const user = await InstitutionModel.findUserByEmail(email)
+      if (!user) {
+        return {
+          success: false,
+          error: 'User not found',
+        }
+      }
+
+      // Verificar se o usuário já está vinculado à instituição
+      const existingLink = await InstitutionModel.findInstitutionUser(user.id, institutionId)
+      if (existingLink && !existingLink.leftAt) {
+        return {
+          success: false,
+          error: 'User is already linked to this institution',
+        }
+      }
+
+      // Criar a vinculação
+      const institutionUser = await InstitutionModel.createInstitutionUser({
+        userId: user.id,
+        institutionId,
+        role,
+        joinedAt: new Date(),
+      })
+
+      console.log('User linked successfully:', institutionUser)
+
+      return {
+        success: true,
+        data: {
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          },
+          role,
+          joinedAt: institutionUser.joinedAt.toISOString(),
+        },
+      }
+    } catch (error) {
+      console.error('Error linking user:', error)
+      return {
+        success: false,
+        error: 'Failed to link user',
+      }
+    }
+  }
 }

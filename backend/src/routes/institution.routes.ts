@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { InstitutionController } from '../controllers/institution.controller.js'
+import { authMiddleware } from '../middleware/auth.middleware.js'
 
 // Schemas para documentação
 const createInstitutionSchema = z.object({
@@ -176,5 +177,42 @@ export async function institutionRoutes(fastify: FastifyInstance) {
       },
     },
     handler: InstitutionController.login,
+  })
+
+  // Vincular usuário à instituição
+  fastify.post('/institutions/users', {
+    preHandler: authMiddleware,
+    schema: {
+      tags: ['institutions'],
+      summary: 'Link user to institution',
+      description: 'Links an existing user to the authenticated institution',
+      security: [{ bearerAuth: [] }],
+      body: z.object({
+        email: z.string().email('Invalid email format').describe('User email'),
+        role: z.enum(['comum', 'teacher']).describe('User role in the institution'),
+      }),
+      response: {
+        201: z.object({
+          message: z.string(),
+          data: z.object({
+            user: z.object({
+              id: z.string(),
+              name: z.string(),
+              email: z.string(),
+            }),
+            role: z.string(),
+            joinedAt: z.string(),
+          }),
+        }),
+        400: z.object({
+          error: z.string(),
+          details: z.array(z.any()).optional(),
+        }),
+        401: z.object({
+          error: z.string(),
+        }),
+      },
+    },
+    handler: InstitutionController.linkUser,
   })
 }
