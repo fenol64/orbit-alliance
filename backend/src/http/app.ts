@@ -54,8 +54,10 @@ app.register(fastifyCors, { origin: '*' })
 // Registrar rotas
 import { institutionRoutes } from '../routes/institution.routes.js'
 import { userRoutes } from '../routes/user.routes.js'
+import { productRoutes } from '../routes/product.routes.js'
 await app.register(institutionRoutes)
 await app.register(userRoutes)
+await app.register(productRoutes)
 
 app.get('/health', () => {
   return 'OK'

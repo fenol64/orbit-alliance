@@ -1,11 +1,29 @@
 import { InstitutionModel, type CreateInstitutionData, type UpdateInstitutionData } from '../models/institution.model.js'
 import type { Institution } from '@prisma/client'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import { env } from '../env.js'
 
 export interface InstitutionServiceResponse<T = any> {
   success: boolean
   data?: T
   error?: string
+}
+
+export interface LoginData {
+  email: string
+  password: string
+}
+
+export interface LoginResponse {
+  institution: {
+    id: string
+    name: string
+    email: string
+    createdAt: string
+    updatedAt: string
+  }
+  token: string
 }
 
 export class InstitutionService {
@@ -254,6 +272,84 @@ export class InstitutionService {
       return {
         success: false,
         error: 'Authentication failed',
+      }
+    }
+  }
+
+  static async login(data: LoginData): Promise<InstitutionServiceResponse<LoginResponse>> {
+    try {
+      console.log('Attempting login for institution:', data.email)
+
+      // Validar email
+      if (!data.email || !data.email.includes('@')) {
+        return {
+          success: false,
+          error: 'Invalid email format',
+        }
+      }
+
+      // Validar senha
+      if (!data.password || data.password.length < 6) {
+        return {
+          success: false,
+          error: 'Password must be at least 6 characters',
+        }
+      }
+
+      // Buscar instituição pelo email
+      const institution = await InstitutionModel.findByEmail(data.email)
+      if (!institution) {
+        return {
+          success: false,
+          error: 'Invalid credentials',
+        }
+      }
+
+      console.log('Institution found, validating password...')
+
+      // Verificar senha
+      const isPasswordValid = await bcrypt.compare(data.password, institution.password)
+      if (!isPasswordValid) {
+        return {
+          success: false,
+          error: 'Invalid credentials',
+        }
+      }
+
+      console.log('Password valid, generating JWT token...')
+
+      // Gerar JWT token
+      const token = jwt.sign(
+        { 
+          institutionId: institution.id,
+          email: institution.email,
+          type: 'institution'
+        },
+        env.JWT_SECRET,
+        { expiresIn: '24h' }
+      )
+
+      console.log('Login successful for institution:', institution.id)
+
+      // Remover a senha do retorno
+      const { password: _, ...institutionWithoutPassword } = institution
+
+      return {
+        success: true,
+        data: {
+          institution: {
+            ...institutionWithoutPassword,
+            createdAt: institutionWithoutPassword.createdAt.toISOString(),
+            updatedAt: institutionWithoutPassword.updatedAt.toISOString(),
+          },
+          token,
+        },
+      }
+    } catch (error) {
+      console.error('Error during login:', error)
+      return {
+        success: false,
+        error: 'Login failed',
       }
     }
   }
