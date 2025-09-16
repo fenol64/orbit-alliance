@@ -144,7 +144,7 @@ export default function InstituteRegister() {
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-600">
             Já possui cadastro?{' '}
-            <Link href="/entrar" className="text-primary hover:underline">
+            <Link href="/instituicao/entrar" className="text-primary hover:underline">
               Fazer login
             </Link>
           </p>

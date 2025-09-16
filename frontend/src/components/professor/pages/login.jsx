@@ -6,14 +6,16 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useConfigStore } from '@/store/configStore'
 
-export default function InstituteLogin() {
+export default function ProfessorLogin() {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   })
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const { setRole } = useConfigStore()
 
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -26,29 +28,30 @@ export default function InstituteLogin() {
     // Simular autenticação
     await new Promise(resolve => setTimeout(resolve, 1500))
 
-    console.log('Login:', formData)
+    console.log('Login Professor:', formData)
 
-    // Redirecionar para o dashboard
+    // Definir role como professor e redirecionar
+    setRole('professor')
     router.push('/')
     setIsLoading(false)
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
-            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xl">O</span>
+            <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xl">O</span>
             </div>
             <span className="ml-3 text-2xl font-bold text-gray-900">Orbit Alliance</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Entrar na Plataforma
+            Portal do Professor
           </h1>
           <p className="text-gray-600">
-            Acesse sua conta institucional
+            Acesse sua conta de professor
           </p>
         </div>
 
@@ -61,7 +64,7 @@ export default function InstituteLogin() {
               type="email"
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
-              placeholder="seu@email.com"
+              placeholder="professor@email.com"
               required
               className="w-full"
             />
@@ -84,18 +87,18 @@ export default function InstituteLogin() {
             <label className="flex items-center">
               <input
                 type="checkbox"
-                className="rounded border-gray-300 text-primary focus:ring-primary"
+                className="rounded border-gray-300 text-green-600 focus:ring-green-600"
               />
               <span className="ml-2 text-sm text-gray-600">Lembrar de mim</span>
             </label>
-            <Link href="/recuperar-senha" className="text-sm text-primary hover:underline">
+            <Link href="/recuperar-senha" className="text-sm text-green-600 hover:underline">
               Esqueceu a senha?
             </Link>
           </div>
 
           <Button
             type="submit"
-            className="w-full"
+            className="w-full bg-green-600 hover:bg-green-700"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -116,29 +119,29 @@ export default function InstituteLogin() {
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-600">
             Não possui cadastro?{' '}
-            <Link href="/instituicao/cadastrar" className="text-primary hover:underline">
-              Cadastrar instituição
+            <Link href="/professores/cadastrar" className="text-green-600 hover:underline">
+              Cadastrar como professor
             </Link>
           </p>
           <p className="text-sm text-gray-500 mt-2">
-            <Link href="/professores/entrar" className="hover:underline">
-              Entrar como professor
+            <Link href="/instituicao/entrar" className="hover:underline">
+              Entrar como instituição
             </Link>
             {' | '}
-            <Link href="/alunos/entrar" className="hover:underline">
+            <Link href="/aluno/entrar" className="hover:underline">
               Entrar como aluno
             </Link>
           </p>
         </div>
 
         {/* Demo credentials */}
-        <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
-          <h3 className="text-sm font-medium text-amber-800 mb-2">
-            🚀 Demo - Credenciais de teste:
+        <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+          <h3 className="text-sm font-medium text-green-800 mb-2">
+            🎓 Demo - Credenciais de teste:
           </h3>
-          <p className="text-xs text-amber-700">
-            Email: demo@instituicao.edu.br<br />
-            Senha: demo123
+          <p className="text-xs text-green-700">
+            Email: professor@demo.com<br />
+            Senha: prof123
           </p>
         </div>
       </div>
