@@ -1,31 +1,59 @@
 import { instituteMockData } from "./mock/institute";
 import { studentMockData } from "./mock/student";
 import { teacherMockData } from "./mock/teacher";
+import { Axios } from "axios";
 
+
+const axios = new Axios({
+    baseURL: process.env.API_URL || "http://localhost:3333",
+});
 export class DatabaseFetcher {
-    async getInstituteHome() {
+    async getInstituteHome(instituteId) {
+        const allUsers = JSON.parse((await axios.get(`/institutions/${instituteId}/users`)).data);
+        const allProducts = JSON.parse((await axios.get("/products")).data);
+        const allActions = JSON.parse((await axios.get("/actions")).data);
+
+        const instituteProducts = allProducts.filter((product: any) => product.instituteId === instituteId);
+        const instituteActions = allActions.filter((action: any) => action.instituteId === instituteId);
+        const instituteStudents = allUsers.filter((user: any) => user.role === "student" && user.instituteId === instituteId);
+        const instituteTeachers = allUsers.filter((user: any) => user.role === "teacher" && user.instituteId === instituteId);
+
         return {
-            dashboard: instituteMockData.dashboard
+            teachers: instituteTeachers.length,
+            activeProducts: instituteProducts.length,
+            actionsTaken: instituteActions.length,
+            students: instituteStudents.length
         }
     }
-    async getInstituteTeachers() {
+    async getInstituteTeachers(instituteId) {
+        const allUsers = (await axios.get("/users")).data;
+        const instituteTeachers = allUsers.data.filter((user: any) => user.role === "teacher");
+
         return {
-            teachers: instituteMockData.teachers
+            teachers: instituteTeachers
         }
     }
-    async getInstituteProducts() {
+    async getInstituteProducts(instituteId) {
+        const allProducts = (await axios.get("/products")).data;
+        const instituteProducts = allProducts.data.filter((product: any) => product.instituteId === instituteId);
+
         return {
-            products: instituteMockData.products
+            products: instituteProducts
         }
     }
-    async getInstituteActions() {
+    async getInstituteActions(instituteId) {
+        const allActions = (await axios.get("/actions")).data;
+        const instituteActions = allActions.data.filter((action: any) => action.instituteId === instituteId);
         return {
-            actions: instituteMockData.actions
+            actions: instituteActions
         }
     }
-    async getInstituteStudents() {
+    async getInstituteStudents(instituteId) {
+        const allUsers = (await axios.get("/users")).data;
+        const instituteStudents = allUsers.data.filter((user: any) => user.role === "student" && user.instituteId === instituteId);
+
         return {
-            students: instituteMockData.students
+            students: instituteStudents
         }
     }
 
@@ -57,6 +85,6 @@ export class DatabaseFetcher {
 
 
     async getRole() {
-        return "teacher"; // Possible values: "institute", "teacher", "student"
+        return "institute"; // Possible values: "institute", "teacher", "student"
     }
 }

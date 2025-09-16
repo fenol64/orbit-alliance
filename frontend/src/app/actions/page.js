@@ -5,11 +5,12 @@ import { useConfigStore } from '@/store/configStore'
 
 const database = new DatabaseFetcher();
 
-export default async function ActionsPage() {
+export default async function ActionsPage({searchParams}) {
     const role = await database.getRole();
+    const {instituteId} = searchParams;
 
     if (role === "institute") {
-        const { actions } = await database.getInstituteActions();
+        const { actions } = await database.getInstituteActions(instituteId);
         return <InstituteActionsPage actions={actions} />;
     }
     else if (role === "student") {

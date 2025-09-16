@@ -4,11 +4,12 @@ import { DatabaseFetcher } from '@/gateway/database';
 
 const database = new DatabaseFetcher();
 
-export default async function ProductsPage() {
+export default async function ProductsPage({searchParams}) {
     const role = await database.getRole();
+    const {instituteId} = searchParams;
 
     if (role === "institute") {
-        const { products } = await database.getInstituteProducts();
+        const { products } = await database.getInstituteProducts(instituteId);
         return <InstituteProductsPage products={products} />;
     }
     else if (role === "student") {

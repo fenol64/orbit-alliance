@@ -3,11 +3,12 @@ import { DatabaseFetcher } from '@/gateway/database';
 
 const database = new DatabaseFetcher();
 
-export default async function ProfessorsPage() {
+export default async function ProfessorsPage(searchParams) {
  const role = await database.getRole();
+ const {instituteId} = searchParams;
 
   if (role === "institute") {
-    const { teachers } = await database.getInstituteTeachers();
+    const { teachers } = await database.getInstituteTeachers(instituteId);
     return <InstituteProfessorsPage teachers={teachers} />;
   }
 

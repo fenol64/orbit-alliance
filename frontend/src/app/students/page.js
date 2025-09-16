@@ -6,9 +6,10 @@ const database = new DatabaseFetcher();
 
 export default async function UserPage() {
   const role = await database.getRole();
+  const {instituteId} = searchParams;
 
   if (role === "institute") {
-    const { students } = await database.getInstituteStudents();
+    const { students } = await database.getInstituteStudents(instituteId);
     return <InstituteUsersPage students={students} />;
   }
 

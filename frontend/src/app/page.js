@@ -1,17 +1,16 @@
 import InstituteHome from "@/components/institute/pages/home";
 import ProfessorHome from "@/components/teacher/pages/home";
 import StudentHome from "@/components/student/pages/home";
-import { getInstituteData } from "@/gateway/mock/institute";
 import { DatabaseFetcher } from "@/gateway/database";
 
 const database = new DatabaseFetcher();
 
-export default async function Home() {
+export default async function Home({searchParams}) {
     const role = await database.getRole();
+    const {instituteId} = searchParams;
 
-
-    if (role === "institute") {
-        const {dashboard} = await database.getInstituteHome();
+    if (instituteId) {
+        const {dashboard} = await database.getInstituteHome(instituteId);
         return <InstituteHome data={dashboard} />;
     }
     else if (role === "teacher") {
