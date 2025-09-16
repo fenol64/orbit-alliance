@@ -9,7 +9,7 @@ export default async function ActionsPage() {
     const role = await database.getRole();
 
     if (role === "institute") {
-        const actions = await database.getInstituteActions();
+        const { actions } = await database.getInstituteActions();
         return <InstituteActionsPage actions={actions} />;
     }
     else if (role === "student") {

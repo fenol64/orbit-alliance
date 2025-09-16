@@ -4,19 +4,29 @@ import { teacherMockData } from "./mock/teacher";
 
 export class DatabaseFetcher {
     async getInstituteDashboard() {
-        return instituteMockData.dashboard;
+        return {
+            dashboard: instituteMockData.dashboard
+        }
     }
     async getInstituteTeachers() {
-        return instituteMockData.teachers;
+        return {
+            teachers: instituteMockData.teachers
+        }
     }
     async getInstituteProducts() {
-        return instituteMockData.products;
+        return {
+            products: instituteMockData.products
+        }
     }
     async getInstituteActions() {
-        return instituteMockData.actions;
+        return {
+            actions: instituteMockData.actions
+        }
     }
     async getInstituteStudents() {
-        return instituteMockData.students;
+        return {
+            students: instituteMockData.students
+        }
     }
 
     async getTeacherHome() {

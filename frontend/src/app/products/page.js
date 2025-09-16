@@ -8,12 +8,12 @@ export default async function ProductsPage() {
     const role = await database.getRole();
 
     if (role === "institute") {
-        const products = await database.getInstituteProducts();
+        const { products } = await database.getInstituteProducts();
         return <InstituteProductsPage products={products} />;
     }
     else if (role === "student") {
-        const {products, balance, cart} = await database.getStudentProducts();
-        return <StudentProductsPage products={products} balance={balance} cart={cart} />;
+        const {products, balance } = await database.getStudentProducts();
+        return <StudentProductsPage products={products} balance={balance} />;
     }
 
     return <div>Ops deu um erro</div>

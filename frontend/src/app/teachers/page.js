@@ -7,8 +7,8 @@ export default async function ProfessorsPage() {
  const role = await database.getRole();
 
   if (role === "institute") {
-    const data = await database.getInstituteTeachers();
-    return <InstituteProfessorsPage professors={data.teachers} />;
+    const { teachers } = await database.getInstituteTeachers();
+    return <InstituteProfessorsPage teachers={teachers} />;
   }
 
   return <div>Ops deu um erro</div>

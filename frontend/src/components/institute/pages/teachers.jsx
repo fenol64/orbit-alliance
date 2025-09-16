@@ -10,7 +10,7 @@ export default function InstituteTeachersPage({ teachers }) {
     { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
     { key: 'specialty', label: 'Specialty' },
-    { key: 'phone', label: 'Phone' }
+    { key: 'telephone', label: 'Phone' }
   ]
 
   const handleAdd = (formData) => {

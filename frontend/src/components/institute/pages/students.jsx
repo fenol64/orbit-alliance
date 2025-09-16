@@ -6,7 +6,6 @@ import UsuarioForm from '@/components/institute/forms/usuario-form'
 import { useState } from 'react'
 
 export default function InstituteUsersPage({ students }) {
-
   const columns = [
     { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
@@ -27,23 +26,15 @@ export default function InstituteUsersPage({ students }) {
   ]
 
   const handleAdd = (formData) => {
-    const newUsuario = {
-      id: Date.now(),
-      ...formData
-    }
-    setUsuarios(prev => [...prev, newUsuario])
+
   }
 
   const handleEdit = (id, formData) => {
-    setUsuarios(prev =>
-      prev.map(usuario =>
-        usuario.id === id ? { ...usuario, ...formData } : usuario
-      )
-    )
+
   }
 
   const handleDelete = (id) => {
-    setUsuarios(prev => prev.filter(usuario => usuario.id !== id))
+
   }
 
   return (
