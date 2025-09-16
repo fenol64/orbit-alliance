@@ -1,5 +1,5 @@
 export const studentMockData = {
-    recentActions: [
+  recentActions: [
     {
       id: 1,
       title: "Completou curso: Introdução ao React",
@@ -49,117 +49,117 @@ export const studentMockData = {
     nextLevel: "Avançado",
     pointsToNextLevel: 225,
   },
-    products: [
-        {
-          id: 1,
-          name: "Certificação AWS Cloud Practitioner",
-          description:
-            "Prepare-se para a certificação AWS Cloud Practitioner com materiais exclusivos e simulados.",
-          price: 150,
-          category: "Certificação",
-          rating: 4.8,
-          reviews: 234,
-          image: "/api/placeholder/300/200",
-          features: [
-            "Materiais de estudo",
-            "10 simulados",
-            "Suporte 24/7",
-            "Certificado de conclusão",
-          ],
-          duration: "40 horas",
-        },
-        {
-          id: 2,
-          name: "Curso Completo de React.js",
-          description:
-            "Domine React.js do básico ao avançado com projetos práticos e exercícios.",
-          price: 89,
-          category: "Curso",
-          rating: 4.9,
-          reviews: 567,
-          image: "/api/placeholder/300/200",
-          features: [
-            "50+ aulas",
-            "5 projetos práticos",
-            "Código fonte",
-            "Mentoria em grupo",
-          ],
-          duration: "60 horas",
-        },
-        {
-          id: 3,
-          name: "Bootcamp Full Stack Developer",
-          description:
-            "Torne-se um desenvolvedor full stack em 6 meses com nosso bootcamp intensivo.",
-          price: 299,
-          category: "Bootcamp",
-          rating: 4.7,
-          reviews: 189,
-          image: "/api/placeholder/300/200",
-          features: [
-            "Frontend e Backend",
-            "Projetos reais",
-            "Mentoria individual",
-            "Garantia de emprego",
-          ],
-          duration: "180 horas",
-        },
-        {
-          id: 4,
-          name: "Kit de Templates UI/UX",
-          description:
-            "Coleção de templates e componentes para acelerar seus projetos de design.",
-          price: 45,
-          category: "Design",
-          rating: 4.6,
-          reviews: 89,
-          image: "/api/placeholder/300/200",
-          features: [
-            "50+ templates",
-            "Componentes Figma",
-            "Guia de estilo",
-            "Atualizações gratuitas",
-          ],
-          duration: "Acesso vitalício",
-        },
-        {
-          id: 5,
-          name: "Workshop: Machine Learning Basics",
-          description:
-            "Introdução prática ao Machine Learning com Python e scikit-learn.",
-          price: 75,
-          category: "Workshop",
-          rating: 4.5,
-          reviews: 145,
-          image: "/api/placeholder/300/200",
-          features: [
-            "Workshop ao vivo",
-            "Material didático",
-            "Projetos práticos",
-            "Certificado",
-          ],
-          duration: "8 horas",
-        },
-        {
-          id: 6,
-          name: "E-book: Carreira em Tech",
-          description:
-            "Guia completo para construir uma carreira sólida na área de tecnologia.",
-          price: 25,
-          category: "E-book",
-          rating: 4.4,
-          reviews: 312,
-          image: "/api/placeholder/300/200",
-          features: [
-            "200+ páginas",
-            "Casos reais",
-            "Templates de CV",
-            "Lista de recursos",
-          ],
-          duration: "Leitura livre",
-        },
+  products: [
+    {
+      id: 1,
+      name: "Certificação AWS Cloud Practitioner",
+      description:
+        "Prepare-se para a certificação AWS Cloud Practitioner com materiais exclusivos e simulados.",
+      price: 150,
+      category: "Certificação",
+      rating: 4.8,
+      reviews: 234,
+      image: "/api/placeholder/300/200",
+      features: [
+        "Materiais de estudo",
+        "10 simulados",
+        "Suporte 24/7",
+        "Certificado de conclusão",
       ],
-      avaliableActions: [
+      duration: "40 horas",
+    },
+    {
+      id: 2,
+      name: "Curso Completo de React.js",
+      description:
+        "Domine React.js do básico ao avançado com projetos práticos e exercícios.",
+      price: 89,
+      category: "Curso",
+      rating: 4.9,
+      reviews: 567,
+      image: "/api/placeholder/300/200",
+      features: [
+        "50+ aulas",
+        "5 projetos práticos",
+        "Código fonte",
+        "Mentoria em grupo",
+      ],
+      duration: "60 horas",
+    },
+    {
+      id: 3,
+      name: "Bootcamp Full Stack Developer",
+      description:
+        "Torne-se um desenvolvedor full stack em 6 meses com nosso bootcamp intensivo.",
+      price: 299,
+      category: "Bootcamp",
+      rating: 4.7,
+      reviews: 189,
+      image: "/api/placeholder/300/200",
+      features: [
+        "Frontend e Backend",
+        "Projetos reais",
+        "Mentoria individual",
+        "Garantia de emprego",
+      ],
+      duration: "180 horas",
+    },
+    {
+      id: 4,
+      name: "Kit de Templates UI/UX",
+      description:
+        "Coleção de templates e componentes para acelerar seus projetos de design.",
+      price: 45,
+      category: "Design",
+      rating: 4.6,
+      reviews: 89,
+      image: "/api/placeholder/300/200",
+      features: [
+        "50+ templates",
+        "Componentes Figma",
+        "Guia de estilo",
+        "Atualizações gratuitas",
+      ],
+      duration: "Acesso vitalício",
+    },
+    {
+      id: 5,
+      name: "Workshop: Machine Learning Basics",
+      description:
+        "Introdução prática ao Machine Learning com Python e scikit-learn.",
+      price: 75,
+      category: "Workshop",
+      rating: 4.5,
+      reviews: 145,
+      image: "/api/placeholder/300/200",
+      features: [
+        "Workshop ao vivo",
+        "Material didático",
+        "Projetos práticos",
+        "Certificado",
+      ],
+      duration: "8 horas",
+    },
+    {
+      id: 6,
+      name: "E-book: Carreira em Tech",
+      description:
+        "Guia completo para construir uma carreira sólida na área de tecnologia.",
+      price: 25,
+      category: "E-book",
+      rating: 4.4,
+      reviews: 312,
+      image: "/api/placeholder/300/200",
+      features: [
+        "200+ páginas",
+        "Casos reais",
+        "Templates de CV",
+        "Lista de recursos",
+      ],
+      duration: "Leitura livre",
+    },
+  ],
+  avaliableActions: [
     {
       id: 1,
       title: "Curso: Next.js Fundamentals",
@@ -265,5 +265,5 @@ export const studentMockData = {
       progress: 40,
       startedAt: "2025-09-08",
     },
-  ]
+  ],
 };

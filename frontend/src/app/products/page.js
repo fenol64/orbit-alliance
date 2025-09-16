@@ -12,7 +12,7 @@ export default async function ProductsPage() {
         return <InstituteProductsPage products={products} />;
     }
     else if (role === "student") {
-        const {products, balance } = await database.getStudentProducts();
+        const { products, balance } = await database.getStudentProducts();
         return <StudentProductsPage products={products} balance={balance} />;
     }
 

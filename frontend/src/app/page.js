@@ -15,12 +15,12 @@ export default async function Home() {
         return <InstituteHome data={dashboard} />;
     }
     else if (role === "teacher") {
-        const teacherData = await database.getTeacherHome();
-        return <ProfessorHome data={teacherData} />;
+        const { actions, students } = await database.getTeacherHome();
+        return <ProfessorHome actions={actions} students={students} />;
     }
     else if (role === "student") {
-        const studentData = await database.getStudentHome();
-        return <StudentHome data={studentData} />;
+        const { recentActions, balance } = await database.getStudentHome();
+        return <StudentHome recentActions={recentActions} balance={balance} />;
     }
 
     return <div>Ops deu um erro</div>

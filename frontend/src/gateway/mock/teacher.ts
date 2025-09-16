@@ -1,5 +1,5 @@
 export const teacherMockData = {
-    actions: [
+  actions: [
     {
       id: 1,
       student: "Maria Silva",

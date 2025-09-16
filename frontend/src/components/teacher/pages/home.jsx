@@ -46,7 +46,7 @@ export default function ProfessorHome({actions = [], students = []}) {
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
                   {
-                    actions?.filter(
+                    actions.filter(
                       (action) => action.status === "pending"
                     ).length
                   }
@@ -78,7 +78,7 @@ export default function ProfessorHome({actions = [], students = []}) {
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
                   {
-                    actions?.filter(
+                    actions.filter(
                       (action) =>
                         action.status === "approved" &&
                         action.date === "2025-09-15"

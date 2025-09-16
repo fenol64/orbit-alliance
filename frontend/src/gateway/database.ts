@@ -57,6 +57,6 @@ export class DatabaseFetcher {
 
 
     async getRole() {
-        return "institute"; // Possible values: "institute", "teacher", "student"
+        return "student"; // Possible values: "institute", "teacher", "student"
     }
 }

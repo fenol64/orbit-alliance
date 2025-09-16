@@ -9,8 +9,6 @@ export default function InstituteTeachersPage({ teachers }) {
   const columns = [
     { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
-    { key: 'specialty', label: 'Specialty' },
-    { key: 'telephone', label: 'Phone' }
   ]
 
   const handleAdd = (formData) => {
