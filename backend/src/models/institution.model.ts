@@ -5,12 +5,14 @@ export interface CreateInstitutionData {
   email: string
   password: string
   name: string
+  wallet?: string
 }
 
 export interface UpdateInstitutionData {
   email?: string
   password?: string
   name?: string
+  wallet?: string
 }
 
 export class InstitutionModel {

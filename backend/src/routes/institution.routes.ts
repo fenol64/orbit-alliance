@@ -8,12 +8,14 @@ const createInstitutionSchema = z.object({
   email: z.string().email('Invalid email format').describe('Institution email'),
   password: z.string().min(6, 'Password must be at least 6 characters').describe('Institution password'),
   name: z.string().min(1, 'Name is required').describe('Institution name'),
+  wallet: z.string().optional().describe('Institution wallet address'),
 })
 
 const updateInstitutionSchema = z.object({
   email: z.string().email('Invalid email format').optional().describe('Institution email'),
   password: z.string().min(6, 'Password must be at least 6 characters').optional().describe('Institution password'),
   name: z.string().min(1, 'Name is required').optional().describe('Institution name'),
+  wallet: z.string().optional().describe('Institution wallet address'),
 })
 
 const institutionParamsSchema = z.object({
@@ -29,6 +31,7 @@ const institutionResponseSchema = z.object({
   id: z.string(),
   email: z.string(),
   name: z.string(),
+  wallet: z.string().nullable(),
   createdAt: z.string(),
   updatedAt: z.string(),
 })

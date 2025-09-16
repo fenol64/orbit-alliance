@@ -7,12 +7,14 @@ const createInstitutionSchema = z.object({
   email: z.string().email('Invalid email format'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   name: z.string().min(1, 'Name is required'),
+  wallet: z.string().optional(),
 })
 
 const updateInstitutionSchema = z.object({
   email: z.string().email('Invalid email format').optional(),
   password: z.string().min(6, 'Password must be at least 6 characters').optional(),
   name: z.string().min(1, 'Name is required').optional(),
+  wallet: z.string().optional(),
 })
 
 const loginInstitutionSchema = z.object({

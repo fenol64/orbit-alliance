@@ -28,6 +28,7 @@ model Institution {
   email       String            @unique
   password    String
   name        String
+  wallet      String?           
   createdAt   DateTime          @default(now()) @map("created_at")
   updatedAt   DateTime          @updatedAt @map("updated_at")
   deletedAt   DateTime?         @map("deleted_at")
@@ -59,7 +60,7 @@ model InstitutionUser {
 model Product {
   id            String      @id @default(ulid())
   name          String
-  price         Int
+  price         Float
   institutionId String      @map("institution_id")
   isInternal    Boolean     @map("is_internal")
   image         String?
@@ -77,7 +78,7 @@ model Purchase {
   id              String    @id @default(ulid())
   productId       String    @map("product_id")
   userId          String    @map("user_id")
-  priceAtPurchase Int
+  priceAtPurchase Float
   purchasedAt     DateTime  @map("purchased_at")
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
