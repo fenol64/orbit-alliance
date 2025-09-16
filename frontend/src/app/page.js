@@ -1,14 +1,24 @@
 "use client";
 
 import InstituteHome from "@/components/institute/pages/home";
+import ProfessorHome from "@/components/professor/pages/home";
+import ProfessorDashboardLayout from "@/components/professor/layouts/dashboard-layout";
 import { useConfigStore } from "@/store/configStore";
 
 export default function Home() {
     const { role } = useConfigStore();
 
-    if (role === "institute") return <InstituteHome />;
-    else if (role === "professor") return <div>Ops deu um erro</div>;
-    else if (role === "student") return <div>Ops deu um erro</div>;
-
-    return <div>Ops deu um erro</div>;
+    return (
+        <>
+            {role === "institute" && (
+                <InstituteHome />
+            )}
+            {role === "professor" && (
+                <ProfessorHome />
+            )}
+            {role === "student" && (
+                <div>Ops deu um erro</div>
+            )}
+        </>
+    );
 }

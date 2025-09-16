@@ -17,7 +17,7 @@ import {
 
 const AsideDashboard = ({ collapsed = false, onToggle }) => {
   const pathname = usePathname()
-  
+
   const menuItems = [
     {
       icon: GraduationCap,
@@ -81,7 +81,7 @@ const AsideDashboard = ({ collapsed = false, onToggle }) => {
         {menuItems.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href
-          
+
           return (
             <Button
               key={item.href}

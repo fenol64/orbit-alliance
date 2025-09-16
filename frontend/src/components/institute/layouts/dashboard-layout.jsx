@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react'
-import AsideDashboard from '@/components/ui/aside'
+import AsideDashboard from '@/components/institute/layouts/aside'
 
 export default function DashboardLayout({ children }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)

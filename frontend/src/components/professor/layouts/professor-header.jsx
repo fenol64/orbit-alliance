@@ -1,0 +1,90 @@
+"use client"
+
+import { useState } from 'react'
+import { ChevronDown, School, User } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+
+export default function ProfessorHeader() {
+  const [selectedInstitution, setSelectedInstitution] = useState("UNESC - Universidade do Extremo Sul")
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
+  // Mock data - em produção viria da API
+  const institutions = [
+    { id: 1, name: "UNESC - Universidade do Extremo Sul", role: "Professor" },
+    { id: 2, name: "UFSC - Universidade Federal de SC", role: "Aluno" },
+    { id: 3, name: "Instituto Federal de SC", role: "Professor" }
+  ]
+
+  const currentInstitution = institutions.find(inst => inst.name === selectedInstitution)
+
+  return (
+    <div className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <User className="h-8 w-8 text-blue-600" />
+            <div>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Dashboard do Professor
+              </h1>
+              <p className="text-sm text-gray-500">
+                Bem-vindo, Prof. João Silva
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Dropdown de Instituições */}
+        <div className="relative">
+          <Button
+            variant="outline"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex items-center space-x-2 min-w-[300px] justify-between"
+          >
+            <div className="flex items-center space-x-2">
+              <School className="h-4 w-4" />
+              <div className="text-left">
+                <div className="font-medium text-sm truncate">
+                  {selectedInstitution}
+                </div>
+                <div className="text-xs text-gray-500">
+                  Função: {currentInstitution?.role}
+                </div>
+              </div>
+            </div>
+            <ChevronDown className="h-4 w-4" />
+          </Button>
+
+          {isDropdownOpen && (
+            <div className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+              <div className="py-1">
+                <div className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">
+                  Suas Instituições
+                </div>
+                {institutions.map((institution) => (
+                  <button
+                    key={institution.id}
+                    onClick={() => {
+                      setSelectedInstitution(institution.name)
+                      setIsDropdownOpen(false)
+                    }}
+                    className={`w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 ${
+                      selectedInstitution === institution.name ? 'bg-blue-50' : ''
+                    }`}
+                  >
+                    <div className="font-medium text-sm text-gray-900">
+                      {institution.name}
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      Função: {institution.role}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
