@@ -15,6 +15,11 @@ const updateInstitutionSchema = z.object({
   name: z.string().min(1, 'Name is required').optional(),
 })
 
+const loginInstitutionSchema = z.object({
+  email: z.string().email('Invalid email format'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+})
+
 const institutionParamsSchema = z.object({
   id: z.string().ulid('Invalid institution ID'),
 })
@@ -233,6 +238,36 @@ export class InstitutionController {
       const { email, password } = loginSchema.parse(request.body)
       const result = await InstitutionService.authenticateInstitution(email, password)
 
+      if (!result.success) {
+        return reply.status(401).send({
+          error: result.error,
+        })
+      }
+
+      return reply.status(200).send({
+        message: 'Login successful',
+        data: result.data,
+      })
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return reply.status(400).send({
+          error: 'Validation error',
+          details: error.errors,
+        })
+      }
+
+      return reply.status(500).send({
+        error: 'Internal server error',
+      })
+    }
+  }
+
+  static async login(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const data = loginInstitutionSchema.parse(request.body)
+      
+      const result = await InstitutionService.login(data)
+      
       if (!result.success) {
         return reply.status(401).send({
           error: result.error,

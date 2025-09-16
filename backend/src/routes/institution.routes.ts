@@ -165,13 +165,16 @@ export async function institutionRoutes(fastify: FastifyInstance) {
       response: {
         200: z.object({
           message: z.string(),
-          data: institutionResponseSchema,
+          data: z.object({
+            institution: institutionResponseSchema,
+            token: z.string(),
+          }),
         }),
         401: z.object({
           error: z.string(),
         }),
       },
     },
-    handler: InstitutionController.loginInstitution,
+    handler: InstitutionController.login,
   })
 }
