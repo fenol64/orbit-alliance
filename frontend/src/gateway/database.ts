@@ -3,11 +3,19 @@ import { studentMockData } from "./mock/student";
 import { teacherMockData } from "./mock/teacher";
 import { Axios } from "axios";
 
+function getToken() {
+    if (typeof window !== "undefined") {
+        return localStorage.getItem("token");
+    }
+    return null;
+}
+
 
 export const axios = new Axios({
     baseURL: process.env.API_URL || "http://localhost:3333",
     headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${getToken()}`
     },
 });
 export class DatabaseFetcher {
@@ -62,7 +70,7 @@ export class DatabaseFetcher {
 
     async getTeacherHome() {
         return {
-            actions: teacherMockData.availableActions,
+            actions: teacherMockData.actions,
             students: teacherMockData.students,
         }
     }

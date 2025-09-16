@@ -24,7 +24,7 @@ export default function InstituteLogin() {
     e.preventDefault()
     setIsLoading(true)
 
-    const response = await axios.post('/institution/login', JSON.stringify(formData))
+    const response = await axios.post('/institutions/login', JSON.stringify(formData))
     const data = JSON.parse(response.data)
     const token = data.token
     const id = data.data.institution.id

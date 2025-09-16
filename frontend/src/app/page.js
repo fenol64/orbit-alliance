@@ -5,18 +5,19 @@ import ProfessorHome from "@/components/teacher/pages/home";
 import StudentHome from "@/components/student/pages/home";
 import { DatabaseFetcher } from "@/gateway/database";
 import { useEffect, useState } from "react";
+import { useParams, useSearchParams } from "next/navigation";
 
-const database = new DatabaseFetcher();
 
 export default function Home() {
+    const database = new DatabaseFetcher();
     const  [role, setRole] = useState(null);
     const [institute, setInstitute] = useState({});
     const [teacher, setTeacher] = useState({});
     const [student, setStudent] = useState({});
     const [token, setToken] = useState(null);
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const {instituteId} = searchParams;
+    const params = useSearchParams();
+    const instituteId = params.get("instituteId") || null;
 
     useEffect(() => {
         const fetchRole = async () => {
@@ -25,18 +26,22 @@ export default function Home() {
             const token = localStorage.getItem("token");
             setToken(token);
             if (role === "institute") {
-                const instituteData = await database.getInstituteDetails();
+                const instituteData = await database.getInstituteHome(instituteId);
                 setInstitute(instituteData);
             } else if (role === "teacher") {
-                const teacherData = await database.getTeacherDetails();
+                const teacherData = await database.getTeacherHome(instituteId);
                 setTeacher(teacherData);
             } else if (role === "student") {
-                const studentData = await database.getStudentDetails();
+                const studentData = await database.getStudentHome(instituteId);
                 setStudent(studentData);
             }
         };
         fetchRole();
     }, []);
+
+    if (!role) {
+        return <div>Loading...</div>;
+    }
 
     if (instituteId) {
         return <InstituteHome data={institute.dashboard} />;
