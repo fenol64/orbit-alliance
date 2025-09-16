@@ -1,12 +1,12 @@
 "use client";
 
-import InstituteHome from "@/components/institute/pages/home";
 import { useConfigStore } from "@/store/configStore";
+import InstituteLogin from "@/components/institute/pages/login";
 
-export default function Home() {
+export default function Login() {
     const { role } = useConfigStore();
 
-    if (role === "institute") return <InstituteHome />;
+    if (role === "institute") return <InstituteLogin />;
     else if (role === "professor") return <div>Ops deu um erro</div>;
     else if (role === "student") return <div>Ops deu um erro</div>;
 

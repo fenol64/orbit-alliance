@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 
-export default function RegistroInstituicao() {
+export default function InstituteRegister() {
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
@@ -144,7 +144,7 @@ export default function RegistroInstituicao() {
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-600">
             Já possui cadastro?{' '}
-            <Link href="/login" className="text-primary hover:underline">
+            <Link href="/entrar" className="text-primary hover:underline">
               Fazer login
             </Link>
           </p>

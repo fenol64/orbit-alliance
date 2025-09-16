@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-export default function Login() {
+export default function InstituteLogin() {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -116,7 +116,7 @@ export default function Login() {
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-600">
             Não possui cadastro?{' '}
-            <Link href="/registro" className="text-primary hover:underline">
+            <Link href="/cadastrar" className="text-primary hover:underline">
               Cadastrar instituição
             </Link>
           </p>
