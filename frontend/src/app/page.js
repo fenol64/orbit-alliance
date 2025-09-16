@@ -11,9 +11,9 @@ import { useParams, useSearchParams } from "next/navigation";
 export default function Home() {
     const database = new DatabaseFetcher();
     const  [role, setRole] = useState(null);
-    const [institute, setInstitute] = useState({});
-    const [teacher, setTeacher] = useState({});
-    const [student, setStudent] = useState({});
+    const [institute, setInstitute] = useState(null);
+    const [teacher, setTeacher] = useState(null);
+    const [student, setStudent] = useState(null);
     const [token, setToken] = useState(null);
 
     const params = useSearchParams();
@@ -22,11 +22,11 @@ export default function Home() {
     useEffect(() => {
         const fetchRole = async () => {
             const role = await database.getRole();
-            setRole(role);
+            console.log("Fetched role:", role);
             const token = localStorage.getItem("token");
-            setToken(token);
             if (role === "institute") {
                 const instituteData = await database.getInstituteHome(instituteId);
+                console.log(instituteData);
                 setInstitute(instituteData);
             } else if (role === "teacher") {
                 const teacherData = await database.getTeacherHome(instituteId);
@@ -35,21 +35,27 @@ export default function Home() {
                 const studentData = await database.getStudentHome(instituteId);
                 setStudent(studentData);
             }
+            setToken(token);
+            setRole(role);
         };
         fetchRole();
     }, []);
 
-    if (!role) {
+    if (!institute && !teacher && !student) {
         return <div>Loading...</div>;
     }
 
-    if (instituteId) {
+    if (institute) {
+        console.log("Role:", role);
+        console.log("Institute Data:", institute);
+        console.log("Teacher Data:", teacher);
+        console.log("Student Data:", student);
         return <InstituteHome data={institute.dashboard} />;
     }
-    else if (role === "teacher") {
+    else if (teacher) {
         return <ProfessorHome actions={teacher.actions} students={teacher.students} />;
     }
-    else if (role === "student") {
+    else if (student) {
         return <StudentHome recentActions={student.recentActions} balance={student.balance} />;
     }
 

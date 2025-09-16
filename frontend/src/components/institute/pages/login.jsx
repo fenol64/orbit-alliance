@@ -26,9 +26,8 @@ export default function InstituteLogin() {
 
     const response = await axios.post('/institutions/login', JSON.stringify(formData))
     const data = JSON.parse(response.data)
-    const token = data.token
+    const token = data.data.token
     const id = data.data.institution.id
-    console.log('ID da instituição:', id)
 
     localStorage.setItem("token", token)
     router.push(`/?instituteId=${id}`)

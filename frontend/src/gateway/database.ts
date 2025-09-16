@@ -9,17 +9,26 @@ function getToken() {
     }
     return null;
 }
-
+let token = null;
 
 export const axios = new Axios({
     baseURL: process.env.API_URL || "http://localhost:3333",
     headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getToken()}`
     },
+});
+
+axios.interceptors.request.use(config => {
+    const token = getToken();
+    console.log("Adding token to header:", token);
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
 });
 export class DatabaseFetcher {
     async getInstituteHome(instituteId) {
+        token = getToken();
         const allUsers = JSON.parse((await axios.get(`/institutions/${instituteId}/users`)).data);
         const allProducts = JSON.parse((await axios.get("/products")).data);
         const allActions = JSON.parse((await axios.get("/actions")).data);
