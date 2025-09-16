@@ -1,40 +1,40 @@
 import { useState } from 'react'
 import UserHeader from '@/components/ui/user-header'
 
-const professorNavItems = [
+const studentNavItems = [
   {
     title: "Dashboard",
     href: "/",
     icon: "LayoutDashboard"
   },
   {
-    title: "Ações Pendentes",
-    href: "/acoes-pendentes",
-    icon: "Clock"
+    title: "Minhas Ações",
+    href: "/minhas-acoes",
+    icon: "Target"
   },
   {
-    title: "Alunos",
-    href: "/alunos",
-    icon: "Users"
+    title: "Produtos",
+    href: "/produtos",
+    icon: "ShoppingCart"
   },
   {
-    title: "Turmas",
-    href: "/turmas",
-    icon: "BookOpen"
+    title: "Certificados",
+    href: "/certificados",
+    icon: "Award"
   },
   {
-    title: "Relatórios",
-    href: "/relatorios",
-    icon: "BarChart"
+    title: "Perfil",
+    href: "/perfil",
+    icon: "User"
   }
 ]
 
-export default function ProfessorDashboardLayout({ children }) {
+export default function StudentDashboardLayout({ children }) {
   const [selectedInstitution, setSelectedInstitution] = useState("UNESC - Universidade do Extremo Sul")
 
   // Mock data - em produção viria da API
   const institutions = [
-    { id: 1, name: "UNESC - Universidade do Extremo Sul", role: "Professor" },
+    { id: 1, name: "UNESC - Universidade do Extremo Sul", role: "Aluno" },
     { id: 2, name: "UFSC - Universidade Federal de SC", role: "Aluno" },
     { id: 3, name: "Instituto Federal de SC", role: "Professor" }
   ]
@@ -43,11 +43,13 @@ export default function ProfessorDashboardLayout({ children }) {
     <div className="flex h-screen bg-gray-100">
       <main className="flex-1 flex flex-col overflow-hidden">
         <UserHeader
-          userType="professor"
-          userName="Prof. João Silva"
+          userType="student"
+          userName="Maria Silva"
           institutions={institutions}
           selectedInstitution={selectedInstitution}
           onInstitutionChange={setSelectedInstitution}
+          showProductsLink={true}
+          showActionsLink={true}
         />
         <div className="flex-1 overflow-y-auto p-6">
           {children}
