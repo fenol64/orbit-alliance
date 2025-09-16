@@ -65,10 +65,12 @@ import { institutionRoutes } from '../routes/institution.routes.js'
 import { userRoutes } from '../routes/user.routes.js'
 import { productRoutes } from '../routes/product.routes.js'
 import { actionRoutes } from '../routes/action.routes.js'
+import { actionUserRoutes } from '../routes/action-user.routes.js'
 await app.register(institutionRoutes)
 await app.register(userRoutes)
 await app.register(productRoutes)
 await app.register(actionRoutes)
+await app.register(actionUserRoutes)
 
 app.get('/health', () => {
   return 'OK'

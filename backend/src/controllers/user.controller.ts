@@ -230,14 +230,13 @@ export class UserController {
 
   // POST /users/login
   static async loginUser(
-    request: FastifyRequest<{
-      Body: z.infer<typeof loginSchema>
-    }>,
+    request: FastifyRequest,
     reply: FastifyReply
   ) {
     try {
-      const { email, password } = loginSchema.parse(request.body)
-      const result = await UserService.authenticateUser(email, password)
+      const data = loginSchema.parse(request.body)
+      const result = await UserService.login(data)
+      console.log(">>>>>>>>>>>>>>>>",result)
 
       if (!result.success) {
         return reply.status(401).send({
@@ -274,6 +273,37 @@ export class UserController {
       const { wallet } = walletLoginSchema.parse(request.body)
       const result = await UserService.authenticateUserByWallet(wallet)
 
+      if (!result.success) {
+        return reply.status(401).send({
+          error: result.error,
+        })
+      }
+
+      return reply.status(200).send({
+        message: 'Login successful',
+        data: result.data,
+      })
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return reply.status(400).send({
+          error: 'Validation error',
+          details: error.errors,
+        })
+      }
+
+      return reply.status(500).send({
+        error: 'Internal server error',
+      })
+    }
+  }
+
+  // Method matching institution pattern
+  static async login(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const data = loginSchema.parse(request.body)
+      
+      const result = await UserService.login(data)
+      
       if (!result.success) {
         return reply.status(401).send({
           error: result.error,

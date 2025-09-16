@@ -166,20 +166,23 @@ export async function userRoutes(fastify: FastifyInstance) {
   fastify.post('/users/login', {
     schema: {
       tags: ['users'],
-      summary: 'User login with email and password',
+      summary: 'User login',
       description: 'Authenticates a user with email and password',
       body: loginSchema,
       response: {
         200: z.object({
           message: z.string(),
-          data: userResponseSchema,
+          data: z.object({
+            user: userResponseSchema,
+            token: z.string(),
+          }),
         }),
         401: z.object({
           error: z.string(),
         }),
       },
     },
-    handler: UserController.loginUser,
+    handler: UserController.login,
   })
 
   // Login do usuário (wallet)

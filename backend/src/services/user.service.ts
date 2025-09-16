@@ -1,11 +1,30 @@
 import { UserModel, type CreateUserData, type UpdateUserData } from '../models/user.model.js'
 import type { User } from '@prisma/client'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import { env } from '../env.js'
 
 export interface UserServiceResponse<T = any> {
   success: boolean
   data?: T
   error?: string
+}
+
+export interface LoginData {
+  email: string
+  password: string
+}
+
+export interface LoginResponse {
+  user: {
+    id: string
+    name: string
+    email: string
+    wallet: string
+    createdAt: string
+    updatedAt: string
+  }
+  token: string
 }
 
 export class UserService {
@@ -309,6 +328,87 @@ export class UserService {
       return {
         success: false,
         error: 'Authentication failed',
+      }
+    }
+  }
+
+  static async login(data: LoginData): Promise<UserServiceResponse<LoginResponse>> {
+    try {
+      console.log('Attempting user login for:', data.email)
+
+      // Validar email
+      if (!data.email || !data.email.includes('@')) {
+        return {
+          success: false,
+          error: 'Invalid email format',
+        }
+      }
+
+      // Validar senha
+      if (!data.password || data.password.length < 6) {
+        return {
+          success: false,
+          error: 'Password must be at least 6 characters',
+        }
+      }
+
+      // Buscar usuário pelo email
+      const user = await UserModel.findByEmail(data.email)
+      if (!user) {
+        return {
+          success: false,
+          error: 'Invalid credentials',
+        }
+      }
+
+      console.log('User found, validating password...')
+
+      // Verificar senha
+      const isPasswordValid = await bcrypt.compare(data.password, user.password)
+      if (!isPasswordValid) {
+        return {
+          success: false,
+          error: 'Invalid credentials',
+        }
+      }
+
+      console.log('Password valid, generating JWT token...')
+
+      // Gerar JWT token
+      const token = jwt.sign(
+        { 
+          userId: user.id,
+          email: user.email,
+          type: 'user'
+        },
+        env.JWT_SECRET,
+        { expiresIn: '24h' }
+      )
+
+      console.log('Login successful for user:', user.id)
+
+      // Remover a senha do retorno
+      const { password: _, ...userWithoutPassword } = user
+
+      return {
+        success: true,
+        data: {
+          user: {
+            id: userWithoutPassword.id,
+            name: userWithoutPassword.name,
+            email: userWithoutPassword.email,
+            wallet: userWithoutPassword.wallet,
+            createdAt: userWithoutPassword.createdAt.toISOString(),
+            updatedAt: userWithoutPassword.updatedAt.toISOString(),
+          },
+          token,
+        },
+      }
+    } catch (error) {
+      console.error('Error during user login:', error)
+      return {
+        success: false,
+        error: 'Login failed',
       }
     }
   }
