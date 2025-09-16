@@ -38,6 +38,15 @@ await app.register(fastifySwagger, {
       title: 'Orbit Alliance',
       version: '1.0.0',
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
   transform: jsonSchemaTransform,
 })
@@ -54,8 +63,12 @@ app.register(fastifyCors, { origin: '*' })
 // Registrar rotas
 import { institutionRoutes } from '../routes/institution.routes.js'
 import { userRoutes } from '../routes/user.routes.js'
+import { productRoutes } from '../routes/product.routes.js'
+import { actionRoutes } from '../routes/action.routes.js'
 await app.register(institutionRoutes)
 await app.register(userRoutes)
+await app.register(productRoutes)
+await app.register(actionRoutes)
 
 app.get('/health', () => {
   return 'OK'
