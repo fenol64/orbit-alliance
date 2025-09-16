@@ -352,4 +352,39 @@ export class InstitutionController {
       })
     }
   }
+
+  // GET /institutions/:id/users
+  static async getInstitutionUsers(
+    request: FastifyRequest<{
+      Params: z.infer<typeof institutionParamsSchema>
+    }>,
+    reply: FastifyReply
+  ) {
+    try {
+      const { id } = institutionParamsSchema.parse(request.params)
+      const result = await InstitutionService.getInstitutionUsers(id)
+
+      if (!result.success) {
+        const statusCode = result.error === 'Institution not found' ? 404 : 500
+        return reply.status(statusCode).send({
+          error: result.error,
+        })
+      }
+
+      return reply.status(200).send({
+        data: result.data,
+      })
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return reply.status(400).send({
+          error: 'Validation error',
+          details: error.errors,
+        })
+      }
+
+      return reply.status(500).send({
+        error: 'Internal server error',
+      })
+    }
+  }
 }

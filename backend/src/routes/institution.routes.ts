@@ -36,6 +36,22 @@ const institutionResponseSchema = z.object({
   updatedAt: z.string(),
 })
 
+const userResponseSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  wallet: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+})
+
+const institutionUserResponseSchema = z.object({
+  user: userResponseSchema,
+  role: z.string(),
+  joinedAt: z.string(),
+  leftAt: z.string().nullable(),
+})
+
 export async function institutionRoutes(fastify: FastifyInstance) {
   // Criar instituição
   fastify.post('/institutions', {
@@ -217,5 +233,32 @@ export async function institutionRoutes(fastify: FastifyInstance) {
       },
     },
     handler: InstitutionController.linkUser,
+  })
+
+  // Listar usuários de uma instituição
+  fastify.get('/institutions/:id/users', {
+    preHandler: institutionAuthMiddleware,
+    schema: {
+      tags: ['institutions'],
+      summary: 'List institution users',
+      description: 'Lists all users linked to an institution with their roles',
+      params: institutionParamsSchema,
+      response: {
+        200: z.object({
+          data: z.array(institutionUserResponseSchema),
+        }),
+        400: z.object({
+          error: z.string(),
+          details: z.array(z.any()).optional(),
+        }),
+        401: z.object({
+          error: z.string(),
+        }),
+        404: z.object({
+          error: z.string(),
+        }),
+      },
+    },
+    handler: InstitutionController.getInstitutionUsers,
   })
 }
