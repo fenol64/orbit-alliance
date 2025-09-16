@@ -30,6 +30,7 @@ export default function InstituteLogin() {
     const id = data.data.institution.id
 
     localStorage.setItem("token", token)
+    localStorage.setItem("instituteId", id)
     router.push(`/?instituteId=${id}`)
     setIsLoading(false)
   }

@@ -1,20 +1,36 @@
+"use client";
+
 import InstituteActionsPage from '@/components/institute/pages/actions';
 import StudentActionsPage from '@/components/student/pages/actions';
 import { DatabaseFetcher } from '@/gateway/database';
 import { useConfigStore } from '@/store/configStore'
+import { useEffect, useState } from 'react';
 
 const database = new DatabaseFetcher();
 
-export default async function ActionsPage({searchParams}) {
-    const role = await database.getRole();
-    const {instituteId} = searchParams;
+export default function ActionsPage() {
+    const [role, setRole] = useState(null);
+    const [institute, setInstitute] = useState(null);
+    const [student, setStudent] = useState(null);
+    const {instituteId} = useConfigStore();
+
+    useEffect(() => {
+        (async () => {
+            const role = await database.getRole();
+            const instituteData = await database.getInstituteActions();
+            const studentData = await database.getStudentActions(instituteId);
+            setRole(role);
+            setInstitute(instituteData);
+            setStudent(studentData);
+        })()
+    }, [])
 
     if (role === "institute") {
-        const { actions } = await database.getInstituteActions(instituteId);
+        const { actions } = institute;
         return <InstituteActionsPage actions={actions} />;
     }
     else if (role === "student") {
-        const { avaliableActions, inProgressActions } = await database.getStudentActions();
+        const { avaliableActions, inProgressActions } = student;
         return <StudentActionsPage avaliableActions={avaliableActions} inProgressActions={inProgressActions} />;
     }
 

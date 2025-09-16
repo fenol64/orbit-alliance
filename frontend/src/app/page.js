@@ -5,7 +5,7 @@ import ProfessorHome from "@/components/teacher/pages/home";
 import StudentHome from "@/components/student/pages/home";
 import { DatabaseFetcher } from "@/gateway/database";
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useConfigStore } from "@/store/configStore";
 
 
 export default function Home() {
@@ -14,20 +14,15 @@ export default function Home() {
     const [institute, setInstitute] = useState(null);
     const [teacher, setTeacher] = useState(null);
     const [student, setStudent] = useState(null);
-    const [token, setToken] = useState(null);
-
-    const params = useSearchParams();
-    const instituteId = params.get("instituteId") || null;
+    const { instituteId } = useConfigStore();
 
     useEffect(() => {
         const fetchRole = async () => {
             const role = await database.getRole();
-            console.log("Fetched role:", role);
-            const token = localStorage.getItem("token");
+
             if (role === "institute") {
                 const instituteData = await database.getInstituteHome(instituteId);
-                console.log(instituteData);
-                setInstitute(instituteData);
+                setInstitute({ dashboard: instituteData });
             } else if (role === "teacher") {
                 const teacherData = await database.getTeacherHome(instituteId);
                 setTeacher(teacherData);

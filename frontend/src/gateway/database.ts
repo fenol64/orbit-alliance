@@ -28,11 +28,12 @@ axios.interceptors.request.use(config => {
 });
 export class DatabaseFetcher {
     async getInstituteHome(instituteId) {
-        token = getToken();
-        const allUsers = JSON.parse((await axios.get(`/institutions/${instituteId}/users`)).data);
-        const allProducts = JSON.parse((await axios.get("/products")).data);
-        const allActions = JSON.parse((await axios.get("/actions")).data);
-
+        const allUsers = JSON.parse((await axios.get(`/institutions/${instituteId}/users`)).data).data;
+        const allProducts = JSON.parse((await axios.get("/products")).data).data;
+        const allActions = JSON.parse((await axios.get("/actions")).data).data;
+        console.log("All Users:", allUsers);
+        console.log("All Products:", allProducts);
+        console.log("All Actions:", allActions);
         const instituteProducts = allProducts.filter((product: any) => product.instituteId === instituteId);
         const instituteActions = allActions.filter((action: any) => action.instituteId === instituteId);
         const instituteStudents = allUsers.filter((user: any) => user.role === "student" && user.instituteId === instituteId);
@@ -46,31 +47,31 @@ export class DatabaseFetcher {
         }
     }
     async getInstituteTeachers(instituteId) {
-        const allUsers = (await axios.get("/users")).data;
-        const instituteTeachers = allUsers.data.filter((user: any) => user.role === "teacher");
+        const allUsers = JSON.parse((await axios.get("/users")).data).data;
+        const instituteTeachers = allUsers.filter((user: any) => user.role === "teacher");
 
         return {
             teachers: instituteTeachers
         }
     }
     async getInstituteProducts(instituteId) {
-        const allProducts = (await axios.get("/products")).data;
-        const instituteProducts = allProducts.data.filter((product: any) => product.instituteId === instituteId);
+        const allProducts = JSON.parse((await axios.get("/products")).data).data;
+        const instituteProducts = allProducts.filter((product: any) => product.instituteId === instituteId);
 
         return {
             products: instituteProducts
         }
     }
     async getInstituteActions(instituteId) {
-        const allActions = (await axios.get("/actions")).data;
-        const instituteActions = allActions.data.filter((action: any) => action.instituteId === instituteId);
+        const allActions = JSON.parse((await axios.get("/actions")).data).data;
+        const instituteActions = allActions.filter((action: any) => action.instituteId === instituteId);
         return {
             actions: instituteActions
         }
     }
     async getInstituteStudents(instituteId) {
-        const allUsers = (await axios.get("/users")).data;
-        const instituteStudents = allUsers.data.filter((user: any) => user.role === "student" && user.instituteId === instituteId);
+        const allUsers = JSON.parse((await axios.get("/users")).data).data;
+        const instituteStudents = allUsers.filter((user: any) => user.role === "student" && user.instituteId === instituteId);
 
         return {
             students: instituteStudents
