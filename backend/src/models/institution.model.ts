@@ -162,4 +162,26 @@ export class InstitutionModel {
       },
     })
   }
+
+  static async findInstitutionUsers(institutionId: string) {
+    return await db.institutionUser.findMany({
+      where: {
+        institutionId,
+        deletedAt: null,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            wallet: true,
+            createdAt: true,
+            updatedAt: true,
+            // Excluímos a senha por segurança
+          }
+        },
+      },
+    })
+  }
 }

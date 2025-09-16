@@ -132,6 +132,45 @@ export class InstitutionService {
     }
   }
 
+  static async getInstitutionUsers(institutionId: string): Promise<InstitutionServiceResponse<any[]>> {
+    try {
+      // Verificar se a instituição existe
+      const institution = await InstitutionModel.findById(institutionId)
+      if (!institution) {
+        return {
+          success: false,
+          error: 'Institution not found',
+        }
+      }
+
+      // Buscar todos os usuários da instituição
+      const institutionUsers = await InstitutionModel.findInstitutionUsers(institutionId)
+
+      // Formatar os dados para o formato desejado
+      const formattedUsers = institutionUsers.map(iu => ({
+        user: {
+          ...iu.user,
+          createdAt: iu.user.createdAt.toISOString(),
+          updatedAt: iu.user.updatedAt.toISOString(),
+        },
+        role: iu.role,
+        joinedAt: iu.joinedAt.toISOString(),
+        leftAt: iu.leftAt ? iu.leftAt.toISOString() : null,
+      }))
+
+      return {
+        success: true,
+        data: formattedUsers,
+      }
+    } catch (error) {
+      console.error('Error fetching institution users:', error)
+      return {
+        success: false,
+        error: 'Failed to fetch institution users',
+      }
+    }
+  }
+
   static async updateInstitution(id: string, data: UpdateInstitutionData): Promise<InstitutionServiceResponse<Institution>> {
     try {
       // Verificar se a instituição existe
