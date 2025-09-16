@@ -1,7 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { InstitutionService } from '../services/institution.service.js'
-import type { JWTPayload } from '../middleware/auth.middleware.js'
 
 // Schemas de validação
 const createInstitutionSchema = z.object({
@@ -314,7 +313,7 @@ export class InstitutionController {
       const validatedData = linkUserSchema.parse(request.body)
       
       // Extrair institutionId do token JWT (vem do middleware de auth)
-      const institutionId = request.user?.institutionId
+      const institutionId = request.institution?.institutionId
       
       if (!institutionId) {
         return reply.status(401).send({
