@@ -24,13 +24,13 @@ export default function InstituteLogin() {
     e.preventDefault()
     setIsLoading(true)
 
-    const response = await axios.post('/institutions/login', JSON.stringify(formData))
+    const response = await axios.post('/institution/login', JSON.stringify(formData))
     const data = JSON.parse(response.data)
     const token = data.token
     const id = data.data.institution.id
     console.log('ID da instituição:', id)
 
-    cookieStore.set("token", token, { path: '/' })
+    localStorage.setItem("token", token)
     router.push(`/?instituteId=${id}`)
     setIsLoading(false)
   }
