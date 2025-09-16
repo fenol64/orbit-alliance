@@ -17,7 +17,7 @@ export const studentMockData = {
       date: "2025-09-14",
       time: "16:45",
       points: 250,
-      status: "completed",
+      status: "pending_approval",
       category: "Projeto",
     },
     {
@@ -43,6 +43,7 @@ export const studentMockData = {
   ],
   balance: {
     totalPoints: 1275,
+    pendingPoints: 250,
     monthlyPoints: 425,
     level: "Intermediário",
     nextLevel: "Avançado",

@@ -156,8 +156,8 @@ export default function InstituteRegister() {
             Why do we need the wallet?
           </h3>
           <p className="text-xs text-blue-700">
-            The cryptocurrency wallet will be used for transactions related to
-            certificates and payments on the blockchain platform.
+            A carteira de criptomoedas será utilizada para transações relacionadas aos
+            certificados e pagamentos na plataforma blockchain.
           </p>
         </div>
       </div>

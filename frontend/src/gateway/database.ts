@@ -4,8 +4,11 @@ import { teacherMockData } from "./mock/teacher";
 import { Axios } from "axios";
 
 
-const axios = new Axios({
+export const axios = new Axios({
     baseURL: process.env.API_URL || "http://localhost:3333",
+    headers: {
+        "Content-Type": "application/json",
+    },
 });
 export class DatabaseFetcher {
     async getInstituteHome(instituteId) {

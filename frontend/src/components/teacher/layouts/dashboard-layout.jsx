@@ -8,6 +8,11 @@ const professorNavItems = [
     icon: "LayoutDashboard"
   },
   {
+    title: "Ações Pendentes",
+    href: "/acoes-pendentes",
+    icon: "Clock"
+  },
+  {
     title: "Alunos",
     href: "/alunos",
     icon: "Users"

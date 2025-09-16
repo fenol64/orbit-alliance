@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { axios } from '@/gateway/database'
 
 export default function InstituteLogin() {
   const [formData, setFormData] = useState({
@@ -23,13 +24,14 @@ export default function InstituteLogin() {
     e.preventDefault()
     setIsLoading(true)
 
-    // Simular autenticação
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    const response = await axios.post('/institutions/login', JSON.stringify(formData))
+    const data = JSON.parse(response.data)
+    const token = data.token
+    const id = data.data.institution.id
+    console.log('ID da instituição:', id)
 
-    console.log('Login:', formData)
-
-    // Redirecionar para o dashboard
-    router.push('/')
+    cookieStore.set("token", token, { path: '/' })
+    router.push(`/?instituteId=${id}`)
     setIsLoading(false)
   }
 

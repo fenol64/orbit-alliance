@@ -120,16 +120,16 @@ export default function StudentLogin() {
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-600">
             Not has an account?{' '}
-            <Link href="/aluno/cadastrar" className="text-purple-600 hover:underline">
+            <Link href="/students/register" className="text-purple-600 hover:underline">
               Register as student
             </Link>
           </p>
           <p className="text-sm text-gray-500 mt-2">
-            <Link href="/entrar" className="hover:underline">
+            <Link href="/institute/login" className="hover:underline">
               Log in as institution
             </Link>
             {' | '}
-            <Link href="/professor/entrar" className="hover:underline">
+            <Link href="/teachers/login" className="hover:underline">
               Log in as teacher
             </Link>
           </p>

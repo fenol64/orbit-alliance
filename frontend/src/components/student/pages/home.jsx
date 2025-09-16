@@ -27,6 +27,12 @@ export default function StudentHome({recentActions = [], balance}) {
             Completed
           </span>
         );
+      case "pending_approval":
+        return (
+          <span className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+            Pending Approval
+          </span>
+        );
       default:
         return (
           <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
@@ -61,6 +67,21 @@ export default function StudentHome({recentActions = [], balance}) {
                   {balance?.totalPoints}
                 </p>
                 <p className="text-xs text-gray-500">points</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-sm border">
+            <div className="flex items-center">
+              <Clock className="h-8 w-8 text-yellow-600" />
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">
+                  Pending Points
+                </p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {balance?.pendingPoints}
+                </p>
+                <p className="text-xs text-gray-500">waiting for approval</p>
               </div>
             </div>
           </div>
