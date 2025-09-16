@@ -3,7 +3,7 @@ import { studentMockData } from "./mock/student";
 import { teacherMockData } from "./mock/teacher";
 
 export class DatabaseFetcher {
-    async getInstituteDashboard() {
+    async getInstituteHome() {
         return {
             dashboard: instituteMockData.dashboard
         }
@@ -31,7 +31,7 @@ export class DatabaseFetcher {
 
     async getTeacherHome() {
         return {
-            actions: teacherMockData.actions,
+            actions: teacherMockData.availableActions,
             students: teacherMockData.students,
         }
     }
@@ -57,6 +57,6 @@ export class DatabaseFetcher {
 
 
     async getRole() {
-        return "student"; // Possible values: "institute", "teacher", "student"
+        return "teacher"; // Possible values: "institute", "teacher", "student"
     }
 }

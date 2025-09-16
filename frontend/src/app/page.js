@@ -11,7 +11,7 @@ export default async function Home() {
 
 
     if (role === "institute") {
-        const dashboard = await database.getInstituteHome();
+        const {dashboard} = await database.getInstituteHome();
         return <InstituteHome data={dashboard} />;
     }
     else if (role === "teacher") {
