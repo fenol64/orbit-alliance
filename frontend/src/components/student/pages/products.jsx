@@ -284,7 +284,6 @@ function ProductCard({
   isInCart,
 }) {
   return (
-    <StudentDashboardLayout>
       <div className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
         <div className="aspect-video bg-gray-100 rounded-t-lg flex items-center justify-center">
           <div className="text-gray-400 text-center">
@@ -365,6 +364,5 @@ function ProductCard({
           </div>
         </div>
       </div>
-    </StudentDashboardLayout>
   );
 }

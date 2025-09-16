@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import StudentDashboardLayout from "../layouts/dashboard-layout";
 
 export default function StudentActionsPage() {
   const [availableActions] = useState([
@@ -377,7 +378,6 @@ function ActionCard({ action, onStart, onContinue, type }) {
   };
 
   return (
-    <StudentDashboardLayout>
       <div className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
         <div className="p-6">
           <div className="flex items-start justify-between mb-3">
@@ -480,6 +480,5 @@ function ActionCard({ action, onStart, onContinue, type }) {
           </div>
         </div>
       </div>
-    </StudentDashboardLayout>
   );
 }

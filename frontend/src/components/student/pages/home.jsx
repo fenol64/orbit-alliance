@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import StudentDashboardLayout from "../layouts/dashboard-layout";
 
 export default function StudentHome() {
   const [recentActions] = useState([
