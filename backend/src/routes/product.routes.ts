@@ -6,7 +6,7 @@ import { institutionAuthMiddleware, userAuthMiddleware } from '../middleware/ins
 // Schemas para documentação
 const createProductSchema = z.object({
   name: z.string().min(1, 'Name is required').describe('Product name'),
-  price: z.number().min(0, 'Price must be a positive number').describe('Product price in cents'),
+  price: z.number().min(0, 'Price must be a positive number').describe('Product price as floating point number'),
   isInternal: z.boolean().describe('Whether the product is internal to the institution'),
   image: z.string().url('Invalid image URL').optional().describe('Product image URL'),
   description: z.string().optional().describe('Product description'),
