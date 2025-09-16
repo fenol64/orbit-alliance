@@ -5,42 +5,11 @@ import DataTemplate from '@/components/institute/layouts/data-template'
 import AcaoForm from '@/components/institute/forms/acao-form'
 import { useState } from 'react'
 
-export default function InstituteActionsPage() {
-  // Dados de exemplo - em um app real, isso viria de uma API
-  const [acoes, setAcoes] = useState([
-    {
-      id: 1,
-      titulo: 'Implementar novo sistema de login',
-      descricao: 'Desenvolver sistema de autenticação com 2FA',
-      status: 'Em Andamento',
-      responsavel: 'João Silva'
-    },
-    {
-      id: 2,
-      titulo: 'Atualizar dashboard',
-      descricao: 'Melhorar interface do painel de controle',
-      status: 'Concluído',
-      responsavel: 'Maria Santos'
-    },
-    {
-      id: 3,
-      titulo: 'Backup automático',
-      descricao: 'Configurar rotina de backup diário',
-      status: 'Pendente',
-      responsavel: 'Carlos Lima'
-    },
-    {
-      id: 4,
-      titulo: 'Migração de dados',
-      descricao: 'Migrar dados legados para novo formato',
-      status: 'Em Andamento',
-      responsavel: 'Ana Costa'
-    }
-  ])
+export default function InstituteActionsPage({ actions }) {
 
   const columns = [
-    { key: 'titulo', label: 'Título' },
-    { key: 'descricao', label: 'Descrição' },
+    { key: 'title', label: 'Title' },
+    { key: 'description', label: 'Description' },
     {
       key: 'status',
       label: 'Status',
@@ -54,37 +23,29 @@ export default function InstituteActionsPage() {
         </span>
       )
     },
-    { key: 'responsavel', label: 'Responsável' }
+    { key: 'responsible', label: 'Responsible' }
   ]
 
   const handleAdd = (formData) => {
-    const newAcao = {
-      id: Date.now(),
-      ...formData
-    }
-    setAcoes(prev => [...prev, newAcao])
+
   }
 
   const handleEdit = (id, formData) => {
-    setAcoes(prev =>
-      prev.map(acao =>
-        acao.id === id ? { ...acao, ...formData } : acao
-      )
-    )
+
   }
 
   const handleDelete = (id) => {
-    setAcoes(prev => prev.filter(acao => acao.id !== id))
+
   }
 
   return (
     <DashboardLayout>
       <DataTemplate
-        title="Ações"
-        description="Monitore e gerencie todas as ações do sistema"
-        data={acoes}
+        title="Actions"
+        description="Monitor and manage all system actions"
+        data={actions}
         columns={columns}
-        searchPlaceholder="Buscar por título, descrição ou responsável..."
+        searchPlaceholder="Search by title, description or responsible..."
         FormComponent={AcaoForm}
         onAdd={handleAdd}
         onEdit={handleEdit}

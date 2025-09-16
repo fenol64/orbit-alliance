@@ -13,102 +13,12 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProfessorDashboardLayout from "../layouts/dashboard-layout";
 
-export default function ProfessorHome() {
-  const [pendingActions, setPendingActions] = useState([
-    {
-      id: 1,
-      student: "Maria Silva",
-      action: "Completou curso: Introdução ao React",
-      date: "2025-09-15",
-      time: "10:30",
-      points: 100,
-      status: "pending",
-    },
-    {
-      id: 2,
-      student: "João Santos",
-      action: "Finalizou projeto: Dashboard SaaS",
-      date: "2025-09-15",
-      time: "09:15",
-      points: 250,
-      status: "pending",
-    },
-    {
-      id: 3,
-      student: "Ana Costa",
-      action: "Participou do workshop: Web3 Fundamentals",
-      date: "2025-09-14",
-      time: "16:45",
-      points: 75,
-      status: "pending",
-    },
-    {
-      id: 4,
-      student: "Pedro Lima",
-      action: "Completou certificação: TypeScript Avançado",
-      date: "2025-09-14",
-      time: "14:20",
-      points: 200,
-      status: "pending",
-    },
-  ]);
-
-  const [students] = useState([
-    {
-      id: 1,
-      name: "Maria Silva",
-      email: "maria.silva@email.com",
-      totalPoints: 850,
-      completedActions: 12,
-      lastActivity: "2025-09-15",
-    },
-    {
-      id: 2,
-      name: "João Santos",
-      email: "joao.santos@email.com",
-      totalPoints: 1200,
-      completedActions: 18,
-      lastActivity: "2025-09-15",
-    },
-    {
-      id: 3,
-      name: "Ana Costa",
-      email: "ana.costa@email.com",
-      totalPoints: 675,
-      completedActions: 9,
-      lastActivity: "2025-09-14",
-    },
-    {
-      id: 4,
-      name: "Pedro Lima",
-      email: "pedro.lima@email.com",
-      totalPoints: 920,
-      completedActions: 15,
-      lastActivity: "2025-09-14",
-    },
-    {
-      id: 5,
-      name: "Carla Oliveira",
-      email: "carla.oliveira@email.com",
-      totalPoints: 480,
-      completedActions: 6,
-      lastActivity: "2025-09-13",
-    },
-  ]);
+export default function ProfessorHome({actions = [], students = []}) {
 
   const handleActionApproval = (actionId, approved) => {
-    setPendingActions((prev) =>
-      prev.map((action) =>
-        action.id === actionId
-          ? { ...action, status: approved ? "approved" : "rejected" }
-          : action
-      )
-    );
   };
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("pt-BR");
   };
 
   return (
@@ -117,10 +27,10 @@ export default function ProfessorHome() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
-              Dashboard do Professor
+              Teacher Dashboard
             </h1>
             <p className="text-gray-600">
-              Gerencie ações dos alunos e acompanhe o progresso da turma
+              Manage student actions and track class progress
             </p>
           </div>
         </div>
@@ -132,11 +42,11 @@ export default function ProfessorHome() {
               <Clock className="h-8 w-8 text-orange-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">
-                  Ações Pendentes
+                  Pending actions
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
                   {
-                    pendingActions.filter(
+                    actions?.filter(
                       (action) => action.status === "pending"
                     ).length
                   }
@@ -150,10 +60,10 @@ export default function ProfessorHome() {
               <User className="h-8 w-8 text-blue-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">
-                  Total de Alunos
+                  Students
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {students.length}
+                  {students?.length}
                 </p>
               </div>
             </div>
@@ -164,11 +74,11 @@ export default function ProfessorHome() {
               <CheckCircle className="h-8 w-8 text-green-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">
-                  Ações Aprovadas Hoje
+                  Approved Actions Today
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
                   {
-                    pendingActions.filter(
+                    actions?.filter(
                       (action) =>
                         action.status === "approved" &&
                         action.date === "2025-09-15"
@@ -184,11 +94,11 @@ export default function ProfessorHome() {
               <Award className="h-8 w-8 text-purple-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">
-                  Pontos Distribuídos
+                  Points Distributed
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {pendingActions
-                    .filter((action) => action.status === "approved")
+                  {actions
+                    ?.filter((action) => action.status === "approved")
                     .reduce((sum, action) => sum + action.points, 0)}
                 </p>
               </div>
@@ -199,23 +109,23 @@ export default function ProfessorHome() {
         {/* Tabs para Ações Pendentes e Alunos */}
         <Tabs defaultValue="actions" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="actions">Ações Pendentes</TabsTrigger>
-            <TabsTrigger value="students">Alunos da Instituição</TabsTrigger>
+            <TabsTrigger value="actions">Pending actions</TabsTrigger>
+            <TabsTrigger value="students">Institution Students</TabsTrigger>
           </TabsList>
 
           <TabsContent value="actions" className="space-y-4">
             <div className="bg-white rounded-lg shadow-sm border">
               <div className="px-6 py-4 border-b border-gray-200">
                 <h3 className="text-lg font-medium text-gray-900">
-                  Últimas Ações para Aprovação
+                  Last Actions for Approval
                 </h3>
                 <p className="text-sm text-gray-600">
-                  Aprove ou rejeite as ações completadas pelos alunos
+                  Approve or reject actions completed by students
                 </p>
               </div>
 
               <div className="divide-y divide-gray-200">
-                {pendingActions.map((action) => (
+                {actions?.map((action) => (
                   <div key={action.id} className="p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
@@ -256,7 +166,7 @@ export default function ProfessorHome() {
                               className="text-red-600 border-red-200 hover:bg-red-50"
                             >
                               <XCircle className="h-4 w-4 mr-1" />
-                              Rejeitar
+                              Reject
                             </Button>
                             <Button
                               size="sm"
@@ -266,7 +176,7 @@ export default function ProfessorHome() {
                               className="bg-green-600 hover:bg-green-700"
                             >
                               <CheckCircle className="h-4 w-4 mr-1" />
-                              Aprovar
+                              Approve
                             </Button>
                           </>
                         ) : (
@@ -278,8 +188,8 @@ export default function ProfessorHome() {
                             }`}
                           >
                             {action.status === "approved"
-                              ? "Aprovado"
-                              : "Rejeitado"}
+                              ? "Approved"
+                              : "Rejected"}
                           </span>
                         )}
                       </div>
@@ -294,10 +204,10 @@ export default function ProfessorHome() {
             <div className="bg-white rounded-lg shadow-sm border">
               <div className="px-6 py-4 border-b border-gray-200">
                 <h3 className="text-lg font-medium text-gray-900">
-                  Alunos da Instituição
+                  Institute students
                 </h3>
                 <p className="text-sm text-gray-600">
-                  Acompanhe o progresso e pontuação dos seus alunos
+                  Track the progress and points of your students
                 </p>
               </div>
 
@@ -306,24 +216,24 @@ export default function ProfessorHome() {
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Aluno
+                        Student
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Email
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Total de Pontos
+                        Total Points
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Ações Completadas
+                        Completed Actions
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Última Atividade
+                        Last Activity
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {students.map((student) => (
+                    {students?.map((student) => (
                       <tr key={student.id} className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">

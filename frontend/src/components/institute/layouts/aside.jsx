@@ -21,23 +21,23 @@ const AsideDashboard = ({ collapsed = false, onToggle }) => {
   const menuItems = [
     {
       icon: GraduationCap,
-      label: 'Professores',
-      href: '/professores',
+      label: 'Teachers',
+      href: '/teachers',
     },
     {
       icon: Package,
-      label: 'Produtos',
-      href: '/produtos',
+      label: 'Products',
+      href: '/products',
     },
     {
       icon: Activity,
-      label: 'Ações',
-      href: '/acoes',
+      label: 'Actions',
+      href: '/actions',
     },
     {
       icon: Users,
-      label: 'Usuários',
-      href: '/usuarios',
+      label: 'Students',
+      href: '/students',
     }
   ]
 
@@ -114,7 +114,7 @@ const AsideDashboard = ({ collapsed = false, onToggle }) => {
           )}
         >
           <User className={cn("h-4 w-4", !collapsed && "mr-2")} />
-          {!collapsed && <span>Perfil</span>}
+          {!collapsed && <span>Profile</span>}
         </Button>
       </div>
     </aside>

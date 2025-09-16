@@ -1,0 +1,107 @@
+export const instituteMockData = {
+  dashboard: {
+    teachers: 145,
+    activeProducts: 89,
+    actionsTaken: 1234,
+    students: 67,
+  },
+  teachers: [
+    {
+      id: 1,
+      nome: "Dr. João Silva",
+      email: "joao.silva@email.com",
+      especialidade: "Matemática",
+      telefone: "(11) 99999-9999",
+    },
+    {
+      id: 2,
+      nome: "Dra. Maria Santos",
+      email: "maria.santos@email.com",
+      especialidade: "Física",
+      telefone: "(11) 88888-8888",
+    },
+    {
+      id: 3,
+      nome: "Prof. Carlos Lima",
+      email: "carlos.lima@email.com",
+      especialidade: "Química",
+      telefone: "(11) 77777-7777",
+    },
+  ],
+  students: [
+    {
+      id: 1,
+      nome: "Admin User",
+      email: "admin@orbitalliance.com",
+      role: "Administrador",
+      telefone: "(11) 99999-9999",
+    },
+    {
+      id: 2,
+      nome: "Editor Silva",
+      email: "editor@orbitalliance.com",
+      role: "Editor",
+      telefone: "(11) 88888-8888",
+    },
+    {
+      id: 3,
+      nome: "Viewer Costa",
+      email: "viewer@orbitalliance.com",
+      role: "Visualizador",
+      telefone: "(11) 77777-7777",
+    },
+  ],
+  actions: [
+    {
+      id: 1,
+      titulo: "Implementar novo sistema de login",
+      descricao: "Desenvolver sistema de autenticação com 2FA",
+      status: "Em Andamento",
+      responsavel: "João Silva",
+    },
+    {
+      id: 2,
+      titulo: "Atualizar dashboard",
+      descricao: "Melhorar interface do painel de controle",
+      status: "Concluído",
+      responsavel: "Maria Santos",
+    },
+    {
+      id: 3,
+      titulo: "Backup automático",
+      descricao: "Configurar rotina de backup diário",
+      status: "Pendente",
+      responsavel: "Carlos Lima",
+    },
+    {
+      id: 4,
+      titulo: "Migração de dados",
+      descricao: "Migrar dados legados para novo formato",
+      status: "Em Andamento",
+      responsavel: "Ana Costa",
+    },
+  ],
+  products: [
+    {
+      id: 1,
+      nome: "Curso de React",
+      descricao: "Curso completo de React para iniciantes",
+      preco: 299.99,
+      categoria: "Programação",
+    },
+    {
+      id: 2,
+      nome: "Curso de Node.js",
+      descricao: "Backend com Node.js e Express",
+      preco: 249.99,
+      categoria: "Programação",
+    },
+    {
+      id: 3,
+      nome: "Design UI/UX",
+      descricao: "Fundamentos de design de interfaces",
+      preco: 199.99,
+      categoria: "Design",
+    },
+  ],
+};

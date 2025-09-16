@@ -15,116 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import StudentDashboardLayout from "../layouts/dashboard-layout";
 
-export default function StudentActionsPage() {
-  const [availableActions] = useState([
-    {
-      id: 1,
-      title: "Curso: Next.js Fundamentals",
-      description:
-        "Aprenda os fundamentos do Next.js, incluindo roteamento, API routes, e deployment.",
-      points: 150,
-      category: "Curso",
-      difficulty: "Intermediário",
-      duration: "8 horas",
-      deadline: "2025-10-15",
-      requirements: ["Conhecimento básico de React"],
-      status: "available",
-    },
-    {
-      id: 2,
-      title: "Workshop: UI/UX Design Principles",
-      description:
-        "Participe do workshop sobre princípios fundamentais de design de interface e experiência do usuário.",
-      points: 100,
-      category: "Workshop",
-      difficulty: "Iniciante",
-      duration: "4 horas",
-      deadline: "2025-09-25",
-      requirements: ["Nenhum pré-requisito"],
-      status: "available",
-    },
-    {
-      id: 3,
-      title: "Projeto: E-commerce App",
-      description:
-        "Desenvolva um aplicativo de e-commerce completo usando React, Node.js e MongoDB.",
-      points: 300,
-      category: "Projeto",
-      difficulty: "Avançado",
-      duration: "20 horas",
-      deadline: "2025-10-30",
-      requirements: ["React", "Node.js", "Database"],
-      status: "available",
-    },
-    {
-      id: 4,
-      title: "Certificação: AWS Cloud Practitioner",
-      description:
-        "Prepare-se e obtenha a certificação AWS Cloud Practitioner.",
-      points: 500,
-      category: "Certificação",
-      difficulty: "Intermediário",
-      duration: "40 horas",
-      deadline: "2025-11-15",
-      requirements: ["Conhecimentos básicos de cloud"],
-      status: "available",
-    },
-    {
-      id: 5,
-      title: "Estudo Dirigido: TypeScript Avançado",
-      description: "Módulo de estudos sobre recursos avançados do TypeScript.",
-      points: 75,
-      category: "Estudo",
-      difficulty: "Intermediário",
-      duration: "6 horas",
-      deadline: "2025-09-20",
-      requirements: ["TypeScript básico"],
-      status: "available",
-    },
-    {
-      id: 6,
-      title: "Hackathon: Green Tech Solutions",
-      description:
-        "Participe do hackathon focado em soluções tecnológicas sustentáveis.",
-      points: 250,
-      category: "Evento",
-      difficulty: "Todos os níveis",
-      duration: "48 horas",
-      deadline: "2025-09-30",
-      requirements: ["Trabalho em equipe"],
-      status: "available",
-    },
-  ]);
-
-  const [inProgressActions] = useState([
-    {
-      id: 101,
-      title: "Curso: React Hooks Avançados",
-      description:
-        "Domine os hooks avançados do React para criar aplicações mais eficientes.",
-      points: 200,
-      category: "Curso",
-      difficulty: "Avançado",
-      duration: "12 horas",
-      deadline: "2025-09-18",
-      progress: 75,
-      startedAt: "2025-09-10",
-    },
-    {
-      id: 102,
-      title: "Projeto: Dashboard Analytics",
-      description:
-        "Desenvolvimento de um dashboard de analytics com gráficos interativos.",
-      points: 180,
-      category: "Projeto",
-      difficulty: "Intermediário",
-      duration: "15 horas",
-      deadline: "2025-09-22",
-      progress: 40,
-      startedAt: "2025-09-08",
-    },
-  ]);
-
+export default function StudentActionsPage({ availableActions = [], inProgressActions = [] }) {
   const startAction = (actionId) => {
     console.log("Iniciando ação:", actionId);
     // Aqui seria a lógica para iniciar uma ação
@@ -188,10 +79,10 @@ export default function StudentActionsPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
-              Ações Disponíveis
+              Available Actions
             </h1>
             <p className="text-gray-600">
-              Complete ações para ganhar pontos e desenvolver suas habilidades
+              Complete actions to earn points and develop your skills
             </p>
           </div>
         </div>
@@ -203,7 +94,7 @@ export default function StudentActionsPage() {
               <Target className="h-8 w-8 text-purple-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">
-                  Ações Disponíveis
+                  Available Actions
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
                   {availableActions.length}
@@ -217,7 +108,7 @@ export default function StudentActionsPage() {
               <Play className="h-8 w-8 text-blue-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">
-                  Em Progresso
+                  In Progress
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
                   {inProgressActions.length}
@@ -231,7 +122,7 @@ export default function StudentActionsPage() {
               <Award className="h-8 w-8 text-yellow-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">
-                  Pontos Disponíveis
+                  Available Points
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
                   {availableActions.reduce(
@@ -248,7 +139,7 @@ export default function StudentActionsPage() {
               <Clock className="h-8 w-8 text-red-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">
-                  Prazos Próximos
+                  Upcoming Deadlines
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
                   {

@@ -1,55 +1,51 @@
-import DashboardLayout from '@/components/institute/layouts/dashboard-layout'
+import DashboardLayout from "@/components/institute/layouts/dashboard-layout";
 
-export default function InstituteHome() {
+export default function InstituteHome({ data }) {
   return (
     <DashboardLayout>
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">
-            Bem-vindo ao painel de controle da Orbit Alliance
+            Welcome to the Orbit Alliance dashboard
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
             <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <h3 className="tracking-tight text-sm font-medium">Total Professores</h3>
+              <h3 className="tracking-tight text-sm font-medium">
+                Teachers
+              </h3>
             </div>
-            <div className="text-2xl font-bold">145</div>
-            <p className="text-xs text-muted-foreground">
-              +10% em relação ao mês passado
-            </p>
+            <div className="text-2xl font-bold">{data.teachers}</div>
           </div>
 
           <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
             <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <h3 className="tracking-tight text-sm font-medium">Produtos Ativos</h3>
+              <h3 className="tracking-tight text-sm font-medium">
+                Active Products
+              </h3>
             </div>
-            <div className="text-2xl font-bold">89</div>
-            <p className="text-xs text-muted-foreground">
-              +5% em relação ao mês passado
-            </p>
+            <div className="text-2xl font-bold">{data.activeProducts}</div>
           </div>
 
           <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
             <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <h3 className="tracking-tight text-sm font-medium">Ações Realizadas</h3>
+              <h3 className="tracking-tight text-sm font-medium">
+                Actions Taken
+              </h3>
             </div>
-            <div className="text-2xl font-bold">1,234</div>
-            <p className="text-xs text-muted-foreground">
-              +15% em relação ao mês passado
-            </p>
+            <div className="text-2xl font-bold">{data.actionsTaken}</div>
           </div>
 
           <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
             <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <h3 className="tracking-tight text-sm font-medium">Usuários Online</h3>
+              <h3 className="tracking-tight text-sm font-medium">
+                Students
+              </h3>
             </div>
-            <div className="text-2xl font-bold">67</div>
-            <p className="text-xs text-muted-foreground">
-              +3% em relação à última hora
-            </p>
+            <div className="text-2xl font-bold">{data.students}</div>
           </div>
         </div>
       </div>

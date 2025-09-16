@@ -1,7 +1,7 @@
 "use client"
 
 import { useConfigStore } from '@/store/configStore'
-import InstituteUsersPage from '@/components/institute/pages/users'
+import InstituteUsersPage from '@/components/institute/pages/students'
 
 export default function UserPage() {
   const { role } = useConfigStore();

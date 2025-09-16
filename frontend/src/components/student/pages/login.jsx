@@ -48,10 +48,10 @@ export default function StudentLogin() {
             <span className="ml-3 text-2xl font-bold text-gray-900">Orbit Alliance</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Portal do Aluno
+            Student Portal
           </h1>
           <p className="text-gray-600">
-            Acesse sua conta de estudante
+            Access your student account
           </p>
         </div>
 
@@ -71,7 +71,7 @@ export default function StudentLogin() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Senha</Label>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
@@ -92,7 +92,8 @@ export default function StudentLogin() {
               <span className="ml-2 text-sm text-gray-600">Lembrar de mim</span>
             </label>
             <Link href="/recuperar-senha" className="text-sm text-purple-600 hover:underline">
-              Esqueceu a senha?
+              Forgot your password?
+
             </Link>
           </div>
 
@@ -107,7 +108,7 @@ export default function StudentLogin() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Entrando...
+                Logging in...
               </span>
             ) : (
               'Entrar'
@@ -118,18 +119,18 @@ export default function StudentLogin() {
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-600">
-            Não possui cadastro?{' '}
+            Not has an account?{' '}
             <Link href="/aluno/cadastrar" className="text-purple-600 hover:underline">
-              Cadastrar como aluno
+              Register as student
             </Link>
           </p>
           <p className="text-sm text-gray-500 mt-2">
             <Link href="/entrar" className="hover:underline">
-              Entrar como instituição
+              Log in as institution
             </Link>
             {' | '}
             <Link href="/professor/entrar" className="hover:underline">
-              Entrar como professor
+              Log in as teacher
             </Link>
           </p>
         </div>
@@ -137,11 +138,11 @@ export default function StudentLogin() {
         {/* Demo credentials */}
         <div className="mt-6 p-4 bg-purple-50 rounded-lg border border-purple-200">
           <h3 className="text-sm font-medium text-purple-800 mb-2">
-            🎓 Demo - Credenciais de teste:
+            🎓 Demo - Test Credentials:
           </h3>
           <p className="text-xs text-purple-700">
             Email: aluno@demo.com<br />
-            Senha: aluno123
+            Password: aluno123
           </p>
         </div>
       </div>

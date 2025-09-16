@@ -45,10 +45,10 @@ export default function InstituteLogin() {
             <span className="ml-3 text-2xl font-bold text-gray-900">Orbit Alliance</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Entrar na Plataforma
+            Enter on plataform
           </h1>
           <p className="text-gray-600">
-            Acesse sua conta institucional
+            Access your institutional account
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export default function InstituteLogin() {
               type="email"
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
-              placeholder="seu@email.com"
+              placeholder="your@email.com"
               required
               className="w-full"
             />
@@ -74,7 +74,7 @@ export default function InstituteLogin() {
               type="password"
               value={formData.password}
               onChange={(e) => handleChange('password', e.target.value)}
-              placeholder="Sua senha"
+              placeholder="Your password"
               required
               className="w-full"
             />
@@ -89,7 +89,7 @@ export default function InstituteLogin() {
               <span className="ml-2 text-sm text-gray-600">Lembrar de mim</span>
             </label>
             <Link href="/recuperar-senha" className="text-sm text-primary hover:underline">
-              Esqueceu a senha?
+              Forgot your password?
             </Link>
           </div>
 
@@ -104,10 +104,10 @@ export default function InstituteLogin() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Entrando...
+                Logging in...
               </span>
             ) : (
-              'Entrar'
+              'Log in'
             )}
           </Button>
         </form>
@@ -115,18 +115,18 @@ export default function InstituteLogin() {
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-600">
-            Não possui cadastro?{' '}
+            Don't have an account?{' '}
             <Link href="/instituicao/cadastrar" className="text-primary hover:underline">
-              Cadastrar instituição
+              Register institution
             </Link>
           </p>
           <p className="text-sm text-gray-500 mt-2">
             <Link href="/professores/entrar" className="hover:underline">
-              Entrar como professor
+              Log in as teacher
             </Link>
             {' | '}
             <Link href="/alunos/entrar" className="hover:underline">
-              Entrar como aluno
+              Log in as student
             </Link>
           </p>
         </div>
@@ -134,11 +134,11 @@ export default function InstituteLogin() {
         {/* Demo credentials */}
         <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
           <h3 className="text-sm font-medium text-amber-800 mb-2">
-            🚀 Demo - Credenciais de teste:
+            🚀 Demo - Test Credentials:
           </h3>
           <p className="text-xs text-amber-700">
             Email: demo@instituicao.edu.br<br />
-            Senha: demo123
+            Password: demo123
           </p>
         </div>
       </div>

@@ -41,13 +41,13 @@ export default function InstituteRegister() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Cadastro Realizado!</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Register finished!</h2>
             <p className="text-gray-600 mb-6">
-              Sua instituição foi registrada com sucesso. Em breve entraremos em contato.
+              Your institution has been successfully registered. We will contact you soon.
             </p>
             <Link href="/">
               <Button className="w-full">
-                Ir para Dashboard
+                Go to Dashboard
               </Button>
             </Link>
           </div>
@@ -68,43 +68,43 @@ export default function InstituteRegister() {
             <span className="ml-3 text-2xl font-bold text-gray-900">Orbit Alliance</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Cadastro de Instituição
+            Register Institution
           </h1>
           <p className="text-gray-600">
-            Registre sua instituição para acessar nossa plataforma
+            Register your institution to access our platform
           </p>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="nome">Nome da Instituição</Label>
+            <Label htmlFor="name">Name of Institution</Label>
             <Input
-              id="nome"
+              id="name"
               type="text"
-              value={formData.nome}
-              onChange={(e) => handleChange('nome', e.target.value)}
-              placeholder="Ex: Universidade Federal do Brasil"
+              value={formData.name}
+              onChange={(e) => handleChange('name', e.target.value)}
+              placeholder="Ex: University of California"
               required
               className="w-full"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email">Email Institucional</Label>
+            <Label htmlFor="email">Institutional Email</Label>
             <Input
               id="email"
               type="email"
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
-              placeholder="contato@instituicao.edu.br"
+              placeholder="contact@institution.edu"
               required
               className="w-full"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="wallet">Carteira de Criptomoedas</Label>
+            <Label htmlFor="wallet">Cryptocurrency Wallet</Label>
             <Input
               id="wallet"
               type="text"
@@ -114,10 +114,10 @@ export default function InstituteRegister() {
               required
               className="w-full"
               pattern="^0x[a-fA-F0-9]{40}$"
-              title="Formato de carteira Ethereum válido (0x seguido de 40 caracteres hexadecimais)"
+              title="Valid Ethereum wallet format (0x followed by 40 hexadecimal characters)"
             />
             <p className="text-xs text-gray-500">
-              Endereço da carteira Ethereum (formato: 0x...)
+              Ethereum wallet address (format: 0x...)
             </p>
           </div>
 
@@ -135,7 +135,7 @@ export default function InstituteRegister() {
                 Processando...
               </span>
             ) : (
-              'Cadastrar Instituição'
+              'Register Institution'
             )}
           </Button>
         </form>
@@ -143,9 +143,9 @@ export default function InstituteRegister() {
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-600">
-            Já possui cadastro?{' '}
+            Already have an account?{' '}
             <Link href="/instituicao/entrar" className="text-primary hover:underline">
-              Fazer login
+              Log in
             </Link>
           </p>
         </div>
@@ -153,11 +153,11 @@ export default function InstituteRegister() {
         {/* Info Box */}
         <div className="mt-6 p-4 bg-blue-50 rounded-lg">
           <h3 className="text-sm font-medium text-blue-900 mb-2">
-            Por que precisamos da carteira?
+            Why do we need the wallet?
           </h3>
           <p className="text-xs text-blue-700">
-            A carteira de criptomoedas será utilizada para transações relacionadas aos
-            certificados e pagamentos na plataforma blockchain.
+            The cryptocurrency wallet will be used for transactions related to
+            certificates and payments on the blockchain platform.
           </p>
         </div>
       </div>

@@ -7,66 +7,13 @@ import {
   TrendingUp,
   Calendar,
   Clock,
-  CheckCircle,
   Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import StudentDashboardLayout from "../layouts/dashboard-layout";
 
-export default function StudentHome() {
-  const [recentActions] = useState([
-    {
-      id: 1,
-      title: "Completou curso: Introdução ao React",
-      description: "Curso de fundamentos de React com certificado",
-      date: "2025-09-15",
-      time: "14:30",
-      points: 100,
-      status: "completed",
-      category: "Desenvolvimento",
-    },
-    {
-      id: 2,
-      title: "Finalizou projeto: Dashboard SaaS",
-      description: "Projeto prático de desenvolvimento web",
-      date: "2025-09-14",
-      time: "16:45",
-      points: 250,
-      status: "pending_approval",
-      category: "Projeto",
-    },
-    {
-      id: 3,
-      title: "Participou do workshop: Web3 Fundamentals",
-      description: "Workshop introdutório sobre tecnologias Web3",
-      date: "2025-09-13",
-      time: "10:15",
-      points: 75,
-      status: "completed",
-      category: "Workshop",
-    },
-    {
-      id: 4,
-      title: "Estudou módulo: TypeScript Avançado",
-      description: "Módulo de estudos sobre TypeScript",
-      date: "2025-09-12",
-      time: "09:20",
-      points: 50,
-      status: "completed",
-      category: "Estudo",
-    },
-  ]);
-
-  const [balance] = useState({
-    totalPoints: 1275,
-    pendingPoints: 250,
-    monthlyPoints: 425,
-    level: "Intermediário",
-    nextLevel: "Avançado",
-    pointsToNextLevel: 225,
-  });
-
+export default function StudentHome({recentActions = [], balance}) {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("pt-BR");
@@ -77,19 +24,19 @@ export default function StudentHome() {
       case "completed":
         return (
           <span className="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-            Completo
+            Completed
           </span>
         );
       case "pending_approval":
         return (
           <span className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-            Aguardando Aprovação
+            Pending Approval
           </span>
         );
       default:
         return (
           <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-            Desconhecido
+            Unknown
           </span>
         );
     }
@@ -101,10 +48,10 @@ export default function StudentHome() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
-              Dashboard do Aluno
+              Student Dashboard
             </h1>
             <p className="text-gray-600">
-              Acompanhe seu progresso e conquistas acadêmicas
+              Track your academic progress and achievements
             </p>
           </div>
         </div>
@@ -115,11 +62,11 @@ export default function StudentHome() {
             <div className="flex items-center">
               <Award className="h-8 w-8 text-purple-600" />
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Saldo Total</p>
+                <p className="text-sm font-medium text-gray-600">Total Balance</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {balance.totalPoints}
+                  {balance?.totalPoints}
                 </p>
-                <p className="text-xs text-gray-500">pontos</p>
+                <p className="text-xs text-gray-500">points</p>
               </div>
             </div>
           </div>
@@ -129,12 +76,12 @@ export default function StudentHome() {
               <Clock className="h-8 w-8 text-yellow-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">
-                  Pontos Pendentes
+                  Pending Points
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {balance.pendingPoints}
+                  {balance?.pendingPoints}
                 </p>
-                <p className="text-xs text-gray-500">aguardando aprovação</p>
+                <p className="text-xs text-gray-500">waiting for approval</p>
               </div>
             </div>
           </div>
@@ -143,11 +90,11 @@ export default function StudentHome() {
             <div className="flex items-center">
               <TrendingUp className="h-8 w-8 text-green-600" />
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Este Mês</p>
+                <p className="text-sm font-medium text-gray-600">This Month</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {balance.monthlyPoints}
+                  {balance?.monthlyPoints}
                 </p>
-                <p className="text-xs text-gray-500">pontos ganhos</p>
+                <p className="text-xs text-gray-500">points earned</p>
               </div>
             </div>
           </div>
@@ -156,12 +103,12 @@ export default function StudentHome() {
             <div className="flex items-center">
               <Star className="h-8 w-8 text-blue-600" />
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Nível Atual</p>
+                <p className="text-sm font-medium text-gray-600">Current Level</p>
                 <p className="text-lg font-bold text-gray-900">
-                  {balance.level}
+                  {balance?.level}
                 </p>
                 <p className="text-xs text-gray-500">
-                  {balance.pointsToNextLevel} pts para {balance.nextLevel}
+                  {balance?.pointsToNextLevel} pts to {balance?.nextLevel}
                 </p>
               </div>
             </div>
@@ -172,41 +119,41 @@ export default function StudentHome() {
         <div className="bg-white p-6 rounded-lg shadow-sm border">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-lg font-medium text-gray-900">
-              Progresso para o Próximo Nível
+              Progress to Next Level
             </h3>
             <span className="text-sm text-gray-500">
-              {balance.level} → {balance.nextLevel}
+              {balance?.level} → {balance?.nextLevel}
             </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-3">
             <div
               className="bg-gradient-to-r from-purple-500 to-blue-500 h-3 rounded-full transition-all duration-300"
               style={{
-                width: `${((1500 - balance.pointsToNextLevel) / 1500) * 100}%`,
+                width: `${((1500 - balance?.pointsToNextLevel) / 1500) * 100}%`,
               }}
             ></div>
           </div>
           <p className="text-sm text-gray-600 mt-2">
-            Faltam {balance.pointsToNextLevel} pontos para alcançar o nível{" "}
-            {balance.nextLevel}
+            Missing {balance?.pointsToNextLevel} points to reach level{" "}
+            {balance?.nextLevel}
           </p>
         </div>
 
         {/* Seções de Ações e Atividades */}
         <Tabs defaultValue="recent" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="recent">Atividades Recentes</TabsTrigger>
-            <TabsTrigger value="available">Ações Disponíveis</TabsTrigger>
+            <TabsTrigger value="recent">Recent Activities</TabsTrigger>
+            <TabsTrigger value="available">Available Actions</TabsTrigger>
           </TabsList>
 
           <TabsContent value="recent" className="space-y-4">
             <div className="bg-white rounded-lg shadow-sm border">
               <div className="px-6 py-4 border-b border-gray-200">
                 <h3 className="text-lg font-medium text-gray-900">
-                  Últimas Atividades
+                  Recent Activities
                 </h3>
                 <p className="text-sm text-gray-600">
-                  Suas ações completadas recentemente
+                  Your recently completed actions
                 </p>
               </div>
 
@@ -253,7 +200,7 @@ export default function StudentHome() {
 
               <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
                 <Button variant="outline" className="w-full">
-                  Ver Todas as Atividades
+                  View All Activities
                 </Button>
               </div>
             </div>
@@ -263,10 +210,10 @@ export default function StudentHome() {
             <div className="bg-white rounded-lg shadow-sm border">
               <div className="px-6 py-4 border-b border-gray-200">
                 <h3 className="text-lg font-medium text-gray-900">
-                  Ações Disponíveis
+                  Available Actions
                 </h3>
                 <p className="text-sm text-gray-600">
-                  Complete essas ações para ganhar pontos
+                  Complete these actions to earn points
                 </p>
               </div>
 
@@ -275,14 +222,14 @@ export default function StudentHome() {
                   <div className="border border-gray-200 rounded-lg p-4 hover:border-purple-200 transition-colors">
                     <div className="flex items-center justify-between mb-3">
                       <h4 className="font-medium text-gray-900">
-                        Curso: Next.js Fundamentals
+                        Course: Next.js Fundamentals
                       </h4>
                       <span className="text-sm font-medium text-purple-600">
                         150 pts
                       </span>
                     </div>
                     <p className="text-sm text-gray-600 mb-3">
-                      Aprenda os fundamentos do Next.js e React Server
+                      Learn the fundamentals of Next.js and React Server
                       Components
                     </p>
                     <Button

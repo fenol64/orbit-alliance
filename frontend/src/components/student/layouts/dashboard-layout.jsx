@@ -1,34 +1,6 @@
 import { useState } from 'react'
 import UserHeader from '@/components/ui/user-header'
 
-const studentNavItems = [
-  {
-    title: "Dashboard",
-    href: "/",
-    icon: "LayoutDashboard"
-  },
-  {
-    title: "Minhas Ações",
-    href: "/minhas-acoes",
-    icon: "Target"
-  },
-  {
-    title: "Produtos",
-    href: "/produtos",
-    icon: "ShoppingCart"
-  },
-  {
-    title: "Certificados",
-    href: "/certificados",
-    icon: "Award"
-  },
-  {
-    title: "Perfil",
-    href: "/perfil",
-    icon: "User"
-  }
-]
-
 export default function StudentDashboardLayout({ children }) {
   const [selectedInstitution, setSelectedInstitution] = useState("UNESC - Universidade do Extremo Sul")
 

@@ -2,19 +2,15 @@
 
 import DashboardLayout from '@/components/institute/layouts/dashboard-layout'
 import DataTemplate from '@/components/institute/layouts/data-template'
-import ProductForm from '@/components/institute/forms/produto-form'
+import TeacherForm from '@/components/institute/forms/professor-form'
 
-export default function InstituteProductsPage({ products }) {
+export default function InstituteTeachersPage({ teachers }) {
 
   const columns = [
     { key: 'name', label: 'Name' },
-    { key: 'description', label: 'Description' },
-    {
-      key: 'price',
-      label: 'Price',
-      render: (value) => `$ ${(value || 0).toFixed(2)}`
-    },
-    { key: 'category', label: 'Category' }
+    { key: 'email', label: 'Email' },
+    { key: 'specialty', label: 'Specialty' },
+    { key: 'phone', label: 'Phone' }
   ]
 
   const handleAdd = (formData) => {
@@ -32,12 +28,12 @@ export default function InstituteProductsPage({ products }) {
   return (
     <DashboardLayout>
       <DataTemplate
-        title="Products"
-        description="Manage all products on the platform"
-        data={products}
+        title="Teachers"
+        description="Manage all the teachers on platform"
+        data={teachers}
         columns={columns}
-        searchPlaceholder="Search by name, description or category..."
-        FormComponent={ProductForm}
+        searchPlaceholder="Search by name, email or specialty..."
+        FormComponent={TeacherForm}
         onAdd={handleAdd}
         onEdit={handleEdit}
         onDelete={handleDelete}

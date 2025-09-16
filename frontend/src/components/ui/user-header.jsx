@@ -12,7 +12,7 @@ export default function UserHeader({ userType, userName, institutions, selectedI
 
   const getHeaderColor = () => {
     switch (userType) {
-      case 'professor': return 'blue'
+      case 'teacher': return 'blue'
       case 'student': return 'purple'
       default: return 'blue'
     }
@@ -20,8 +20,8 @@ export default function UserHeader({ userType, userName, institutions, selectedI
 
   const getHeaderTitle = () => {
     switch (userType) {
-      case 'professor': return 'Dashboard do Professor'
-      case 'student': return 'Dashboard do Aluno'
+      case 'teacher': return 'Teacher Dashboard'
+      case 'student': return 'Student Dashboard'
       default: return 'Dashboard'
     }
   }
@@ -39,7 +39,7 @@ export default function UserHeader({ userType, userName, institutions, selectedI
                 {getHeaderTitle()}
               </h1>
               <p className="text-sm text-gray-500">
-                Bem-vindo, {userName}
+                Welcome, {userName}
               </p>
             </div>
           </div>
@@ -49,18 +49,18 @@ export default function UserHeader({ userType, userName, institutions, selectedI
           {/* Links de navegação específicos */}
           <div className="flex items-center space-x-2">
             {showProductsLink && (
-              <Link href="/produtos">
+              <Link href="/products">
                 <Button variant="outline" size="sm" className="flex items-center space-x-2">
                   <ShoppingCart className="h-4 w-4" />
-                  <span>Produtos</span>
+                  <span>Products</span>
                 </Button>
               </Link>
             )}
             {showActionsLink && (
-              <Link href="/acoes">
+              <Link href="/actions">
                 <Button variant="outline" size="sm" className="flex items-center space-x-2">
                   <Target className="h-4 w-4" />
-                  <span>Ações</span>
+                  <span>Actions</span>
                 </Button>
               </Link>
             )}
@@ -80,7 +80,7 @@ export default function UserHeader({ userType, userName, institutions, selectedI
                     {selectedInstitution}
                   </div>
                   <div className="text-xs text-gray-500">
-                    Função: {currentInstitution?.role}
+                    Role: {currentInstitution?.role}
                   </div>
                 </div>
               </div>
@@ -91,7 +91,7 @@ export default function UserHeader({ userType, userName, institutions, selectedI
               <div className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-md shadow-lg z-50">
                 <div className="py-1">
                   <div className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">
-                    Suas Instituições
+                    Your Institutions
                   </div>
                   {institutions.map((institution) => (
                     <button
@@ -108,7 +108,7 @@ export default function UserHeader({ userType, userName, institutions, selectedI
                         {institution.name}
                       </div>
                       <div className="text-xs text-gray-500 mt-1">
-                        Função: {institution.role}
+                        Role: {institution.role}
                       </div>
                     </button>
                   ))}

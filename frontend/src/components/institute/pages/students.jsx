@@ -5,41 +5,17 @@ import DataTemplate from '@/components/institute/layouts/data-template'
 import UsuarioForm from '@/components/institute/forms/usuario-form'
 import { useState } from 'react'
 
-export default function InstituteUsersPage() {
-  // Dados de exemplo - em um app real, isso viria de uma API
-  const [usuarios, setUsuarios] = useState([
-    {
-      id: 1,
-      nome: 'Admin User',
-      email: 'admin@orbitalliance.com',
-      role: 'Administrador',
-      telefone: '(11) 99999-9999'
-    },
-    {
-      id: 2,
-      nome: 'Editor Silva',
-      email: 'editor@orbitalliance.com',
-      role: 'Editor',
-      telefone: '(11) 88888-8888'
-    },
-    {
-      id: 3,
-      nome: 'Viewer Costa',
-      email: 'viewer@orbitalliance.com',
-      role: 'Visualizador',
-      telefone: '(11) 77777-7777'
-    }
-  ])
+export default function InstituteUsersPage({ students }) {
 
   const columns = [
-    { key: 'nome', label: 'Nome' },
+    { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
     {
       key: 'role',
-      label: 'Função',
+      label: 'Role',
       render: (value) => (
         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-          value === 'Administrador' ? 'bg-red-100 text-red-800' :
+          value === 'Administrator' ? 'bg-red-100 text-red-800' :
           value === 'Editor' ? 'bg-blue-100 text-blue-800' :
           'bg-green-100 text-green-800'
         }`}>
@@ -47,7 +23,7 @@ export default function InstituteUsersPage() {
         </span>
       )
     },
-    { key: 'telefone', label: 'Telefone' }
+    { key: 'telephone', label: 'Telephone' }
   ]
 
   const handleAdd = (formData) => {
@@ -73,11 +49,11 @@ export default function InstituteUsersPage() {
   return (
     <DashboardLayout>
       <DataTemplate
-        title="Usuários"
-        description="Gerencie todos os usuários da plataforma"
-        data={usuarios}
+        title="Students"
+        description="Manage all platform students"
+        data={students}
         columns={columns}
-        searchPlaceholder="Buscar por nome, email ou função..."
+        searchPlaceholder="Search by name, email or role..."
         FormComponent={UsuarioForm}
         onAdd={handleAdd}
         onEdit={handleEdit}

@@ -51,13 +51,13 @@ export default function StudentRegister() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Cadastro Realizado!</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Registration Successful!</h2>
             <p className="text-gray-600 mb-6">
-              Bem-vindo à plataforma! Seu cadastro foi criado com sucesso.
+              Welcome to the platform! Your registration has been successfully created.
             </p>
             <Link href="/aluno/entrar">
               <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                Fazer Login
+                Log in
               </Button>
             </Link>
           </div>
@@ -78,23 +78,23 @@ export default function StudentRegister() {
             <span className="ml-3 text-2xl font-bold text-gray-900">Orbit Alliance</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Cadastro de Aluno
+            Student Registration
           </h1>
           <p className="text-gray-600">
-            Comece sua jornada de aprendizado
+            Start your learning journey
           </p>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="nome">Nome Completo</Label>
+            <Label htmlFor="nome">Full Name</Label>
             <Input
               id="nome"
               type="text"
               value={formData.nome}
               onChange={(e) => handleChange('nome', e.target.value)}
-              placeholder="Seu nome completo"
+              placeholder="Your Full Name"
               required
               className="w-full"
             />
@@ -107,40 +107,40 @@ export default function StudentRegister() {
               type="email"
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
-              placeholder="aluno@email.com"
+              placeholder="student@email.com"
               required
               className="w-full"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Senha</Label>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
               value={formData.password}
               onChange={(e) => handleChange('password', e.target.value)}
-              placeholder="Crie uma senha"
+              placeholder="Create a password"
               required
               className="w-full"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirmar Senha</Label>
+            <Label htmlFor="confirmPassword">Confirm Password</Label>
             <Input
               id="confirmPassword"
               type="password"
               value={formData.confirmPassword}
               onChange={(e) => handleChange('confirmPassword', e.target.value)}
-              placeholder="Confirme sua senha"
+              placeholder="Confirm your password"
               required
               className="w-full"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="telefone">Telefone</Label>
+            <Label htmlFor="telefone">Telephone</Label>
             <Input
               id="telefone"
               type="tel"
@@ -153,7 +153,7 @@ export default function StudentRegister() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="dataNascimento">Data de Nascimento</Label>
+            <Label htmlFor="dataNascimento">Date of Birth</Label>
             <Input
               id="dataNascimento"
               type="date"
@@ -165,13 +165,13 @@ export default function StudentRegister() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="instituicao">Instituição de Interesse</Label>
+            <Label htmlFor="instituicao">Institution of Interest</Label>
             <Input
               id="instituicao"
               type="text"
               value={formData.instituicao}
               onChange={(e) => handleChange('instituicao', e.target.value)}
-              placeholder="Nome da instituição"
+              placeholder="Name of the institution"
               required
               className="w-full"
             />
@@ -207,10 +207,10 @@ export default function StudentRegister() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Cadastrando...
+                Registering...
               </span>
             ) : (
-              'Cadastrar'
+              'Register'
             )}
           </Button>
         </form>
@@ -225,11 +225,11 @@ export default function StudentRegister() {
           </p>
           <p className="text-sm text-gray-500 mt-2">
             <Link href="/entrar" className="hover:underline">
-              Entrar como instituição
+              Log in as institution
             </Link>
             {' | '}
             <Link href="/professor/entrar" className="hover:underline">
-              Entrar como professor
+              Log in as teacher
             </Link>
           </p>
         </div>

@@ -25,7 +25,7 @@ const DataTemplate = ({
   description,
   data = [],
   columns = [],
-  searchPlaceholder = "Buscar...",
+  searchPlaceholder = "Search...",
   FormComponent,
   onAdd,
   onEdit,
@@ -66,7 +66,7 @@ const DataTemplate = ({
   }
 
   const handleDelete = (item) => {
-    if (window.confirm(`Tem certeza que deseja deletar este item?`)) {
+    if (window.confirm(`Are you sure you want to delete this item?`)) {
       onDelete?.(item.id)
     }
   }
@@ -86,14 +86,14 @@ const DataTemplate = ({
           <DialogTrigger asChild>
             <Button onClick={handleAdd}>
               <Plus className="h-4 w-4 mr-2" />
-              Adicionar {title.slice(0, -1)}
+              Add {title.slice(0, -1)}
             </Button>
           </DialogTrigger>
 
           <DialogContent className="max-w-md">
             <DialogHeader>
               <DialogTitle>
-                {editingItem ? 'Editar' : 'Adicionar'} {title.slice(0, -1)}
+                {editingItem ? 'Edit' : 'Add'} {title.slice(0, -1)}
               </DialogTitle>
             </DialogHeader>
 
@@ -129,7 +129,7 @@ const DataTemplate = ({
               {columns.map((column) => (
                 <TableHead key={column.key}>{column.label}</TableHead>
               ))}
-              <TableHead className="w-20">Ações</TableHead>
+              <TableHead className="w-20">Actions</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -137,13 +137,13 @@ const DataTemplate = ({
             {loading ? (
               <TableRow>
                 <TableCell colSpan={columns.length + 1} className="text-center py-8">
-                  Carregando...
+                  Loading...
                 </TableCell>
               </TableRow>
             ) : filteredData.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={columns.length + 1} className="text-center py-8">
-                  {searchTerm ? 'Nenhum resultado encontrado' : 'Nenhum item encontrado'}
+                  {searchTerm ? 'No results found' : 'No items found'}
                 </TableCell>
               </TableRow>
             ) : (
@@ -184,7 +184,7 @@ const DataTemplate = ({
       {/* Stats Footer */}
       {!loading && (
         <div className="text-sm text-muted-foreground">
-          Mostrando {filteredData.length} de {data.length} itens
+          Showing {filteredData.length} of {data.length} items
         </div>
       )}
     </div>
